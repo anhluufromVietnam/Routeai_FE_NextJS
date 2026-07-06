@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
-
-// Mock database to store registered emails
-const registeredEmails = new Set<string>();
+import { mockUsers } from '../mockDb';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email } = body;
+    const { email, password, full_name } = body;
 
     // Check if email already exists
-    if (email && registeredEmails.has(email)) {
+    if (email && mockUsers.find(u => u.email === email)) {
       return NextResponse.json(
         { 
           success: false, 
@@ -21,7 +19,14 @@ export async function POST(request: Request) {
 
     // Save email to mock database
     if (email) {
-      registeredEmails.add(email);
+      mockUsers.push({
+        id: `mock-user-${Date.now()}`,
+        email,
+        password: password || '123456',
+        full_name: full_name || email.split('@')[0],
+        role: 'driver',
+        language_pref: 'vi'
+      });
     }
     
     // Mock register logic

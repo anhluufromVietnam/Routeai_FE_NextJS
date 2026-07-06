@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { mockUsers } from '../mockDb';
 
 export async function POST(request: Request) {
   try {
@@ -6,16 +7,16 @@ export async function POST(request: Request) {
     const { email, password } = body;
 
     // Mock login logic
-    if (email && password) {
-      if (email === 'admin@routeai.com' && password === '123456') {
-        return NextResponse.json({
-          success: true,
-          data: {
-            access_token: 'mock_access_token',
-            refresh_token: 'mock_refresh_token',
-          }
-        });
-      }
+    const user = mockUsers.find(u => u.email === email && u.password === password);
+
+    if (user) {
+      return NextResponse.json({
+        success: true,
+        data: {
+          access_token: `mock_access_token_${user.id}`,
+          refresh_token: 'mock_refresh_token',
+        }
+      });
     }
 
     return NextResponse.json(

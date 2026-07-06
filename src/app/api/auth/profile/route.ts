@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { mockUsers } from '../mockDb';
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
@@ -10,15 +11,24 @@ export async function GET(request: Request) {
     );
   }
 
+  const token = authHeader.replace('Bearer ', '');
+  const userId = token.replace('mock_access_token_', '');
+  
+  const user = mockUsers.find(u => u.id === userId);
+
+  if (!user) {
+    return NextResponse.json(
+      { success: false, error: { code: 'UNAUTHORIZED', message: 'Invalid token' } },
+      { status: 401 }
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { password, ...userWithoutPassword } = user;
+
   // Mock profile data
   return NextResponse.json({
     success: true,
-    data: {
-      id: 'mock-user-123',
-      email: 'jane.doe+1@example.com',
-      full_name: 'Jane Doe',
-      role: 'driver',
-      language_pref: 'en'
-    }
+    data: userWithoutPassword
   });
 }
