@@ -1,17 +1,23 @@
+'use client';
 import React from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function DriverHome() {
+  const { user } = useAuth();
+  const userName = user?.full_name || user?.email?.split('@')[0] || 'Nguyễn Văn A';
+  const initial = userName.charAt(0).toUpperCase();
+
   return (
     <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--color-primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-primary)', fontWeight: 'bold', fontSize: '1.25rem' }}>
-            N
+            {initial}
           </div>
           <div>
             <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: '0.25rem' }}>Xin chào,</p>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Nguyễn Văn A</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{userName}</h2>
           </div>
         </div>
         <button style={{ padding: '0.5rem', backgroundColor: 'var(--color-bg-surface)', borderRadius: '50%', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>

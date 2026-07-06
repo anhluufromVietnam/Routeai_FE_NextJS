@@ -1,8 +1,14 @@
 "use client";
 import React from 'react';
 import { User, Crown, Map, Bell, HelpCircle, LogOut, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
+  const { user, logout } = useAuth();
+  const router = useRouter();
+  const userName = user?.full_name || user?.email?.split('@')[0] || 'Nguyễn Văn A';
+
   return (
     <div className="bg-gray-50 min-h-screen pb-24">
       {/* Header */}
@@ -13,12 +19,12 @@ export default function SettingsPage() {
       <div className="p-4 space-y-6" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         
         {/* Profile Card */}
-        <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '20px', border: '1px solid #f3f4f6', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center' }}>
+        <div onClick={() => router.push('/driver/profile')} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center active:bg-gray-50 cursor-pointer transition-colors" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '20px', border: '1px solid #f3f4f6', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center' }}>
           <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden mr-4 border-2 border-primary/20" style={{ width: '64px', height: '64px', backgroundColor: '#e5e7eb', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginRight: '16px', border: '2px solid rgba(4, 167, 108, 0.2)' }}>
             <User size={32} className="text-gray-400 mt-2" style={{ color: '#9ca3af', marginTop: '8px' }} />
           </div>
           <div className="flex-1" style={{ flex: 1 }}>
-            <h2 className="text-xl font-bold text-gray-800 mb-1" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '4px' }}>Nguyễn Văn A</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-1" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '4px' }}>{userName}</h2>
             <div className="flex items-center" style={{ display: 'flex', alignItems: 'center' }}>
               <span className="bg-primary/10 text-primary text-xs font-bold px-2 py-0.5 rounded flex items-center" style={{ backgroundColor: 'rgba(4, 167, 108, 0.1)', color: 'var(--color-primary)', fontSize: '0.75rem', fontWeight: 'bold', padding: '2px 8px', borderRadius: '4px', display: 'flex', alignItems: 'center' }}>
                 <Crown size={12} className="mr-1" style={{ marginRight: '4px' }} />
@@ -104,7 +110,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <button className="w-full bg-red-50 text-red-500 font-bold py-4 rounded-xl flex items-center justify-center active:bg-red-100 transition-colors" style={{ width: '100%', backgroundColor: '#fef2f2', color: '#ef4444', fontWeight: 'bold', padding: '16px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none' }}>
+        <button onClick={() => logout()} className="w-full bg-red-50 text-red-500 font-bold py-4 rounded-xl flex items-center justify-center active:bg-red-100 transition-colors" style={{ width: '100%', backgroundColor: '#fef2f2', color: '#ef4444', fontWeight: 'bold', padding: '16px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none' }}>
           <LogOut size={20} className="mr-2" style={{ marginRight: '8px' }} />
           Đăng xuất
         </button>

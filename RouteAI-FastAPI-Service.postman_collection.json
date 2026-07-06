@@ -1,0 +1,371 @@
+{
+  "info": {
+    "name": "RouteAI - FastAPI AI Service (Week 1: Image Preprocessing)",
+    "description": "Covers the Week 1 AI-service scope: service health check and OpenCV-based image deskew/brightness normalization ahead of the Week 2 OCR text-extraction step. A ready-to-use sample image is included at postman/sample_label.jpg.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            ""
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "health"
+          ]
+        },
+        "description": "Basic liveness check. This service is stateless in Week 1, no DB dependency."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Reports ok status', function () {",
+              "  const json = pm.response.json();",
+              "  pm.expect(json.success).to.eql(true);",
+              "  pm.expect(json.data.status).to.eql('ok');",
+              "  pm.expect(json.data.service).to.eql('routeai-ai-service');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Unknown Route (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/does-not-exist",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "does-not-exist"
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 404', function () { pm.response.to.have.status(404); });",
+              "pm.test('Error code is NOT_FOUND', function () {",
+              "  const json = pm.response.json();",
+              "  pm.expect(json.error.code).to.eql('NOT_FOUND');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "OCR Preprocess - Success (200)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/ocr/preprocess",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ocr",
+            "preprocess"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "description": "Attach postman/sample_label.jpg from this project (or any JPEG/PNG/WEBP photo of a label).",
+              "src": []
+            },
+            {
+              "key": "language",
+              "type": "text",
+              "description": "",
+              "value": "en"
+            }
+          ]
+        },
+        "description": "MUST manually attach a file: click the 'image' field's value and select postman/sample_label.jpg (included in this project) before sending."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Returns processed image and metrics', function () {",
+              "  const json = pm.response.json();",
+              "  pm.expect(json.success).to.eql(true);",
+              "  pm.expect(json.data.processed_image_base64).to.be.a('string');",
+              "  pm.expect(json.data.width).to.be.a('number');",
+              "  pm.expect(json.data.height).to.be.a('number');",
+              "  pm.expect(json.data.contrast_method).to.include('CLAHE');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "OCR Preprocess - Missing File (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/ocr/preprocess",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ocr",
+            "preprocess"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "language",
+              "type": "text",
+              "description": "",
+              "value": "en"
+            }
+          ]
+        },
+        "description": "No 'image' field sent at all -> FastAPI/Pydantic validation failure, normalized to our error envelope."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+              "pm.test('Error code is BAD_REQUEST', function () {",
+              "  const json = pm.response.json();",
+              "  pm.expect(json.error.code).to.eql('BAD_REQUEST');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "OCR Preprocess - Unsupported Content Type (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/ocr/preprocess",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ocr",
+            "preprocess"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "description": "Attach any .txt or .gif file to trigger the content-type check.",
+              "src": []
+            },
+            {
+              "key": "language",
+              "type": "text",
+              "description": "",
+              "value": "en"
+            }
+          ]
+        },
+        "description": "Attach a non-image file (e.g. a .txt file) to see the content-type validation reject it before OpenCV ever touches it."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "OCR Preprocess - Invalid Language (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/ocr/preprocess",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ocr",
+            "preprocess"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "description": "Attach postman/sample_label.jpg",
+              "src": []
+            },
+            {
+              "key": "language",
+              "type": "text",
+              "description": "",
+              "value": "de"
+            }
+          ]
+        },
+        "description": ""
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "OCR Preprocess - Corrupted Image (422)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/ocr/preprocess",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "ocr",
+            "preprocess"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "description": "Attach a .jpg file whose contents are actually garbage/text (rename a .txt to .jpg to simulate a corrupted upload).",
+              "src": []
+            },
+            {
+              "key": "language",
+              "type": "text",
+              "description": "",
+              "value": "en"
+            }
+          ]
+        },
+        "description": "Content-type says image/jpeg but the bytes are not a real image -> OpenCV fails to decode -> 422."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 422', function () { pm.response.to.have.status(422); });",
+              "pm.test('Error code is UNPROCESSABLE_ENTITY', function () {",
+              "  const json = pm.response.json();",
+              "  pm.expect(json.error.code).to.eql('UNPROCESSABLE_ENTITY');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}
