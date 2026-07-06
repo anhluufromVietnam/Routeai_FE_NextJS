@@ -7,13 +7,15 @@ export async function POST(request: Request) {
 
     // Mock login logic
     if (email && password) {
-      return NextResponse.json({
-        success: true,
-        data: {
-          access_token: 'mock_access_token',
-          refresh_token: 'mock_refresh_token',
-        }
-      });
+      if (email === 'admin@routeai.com' && password === '123456') {
+        return NextResponse.json({
+          success: true,
+          data: {
+            access_token: 'mock_access_token',
+            refresh_token: 'mock_refresh_token',
+          }
+        });
+      }
     }
 
     return NextResponse.json(

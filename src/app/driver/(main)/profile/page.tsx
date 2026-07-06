@@ -22,7 +22,7 @@ export default function ProfilePage() {
           <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mb-4">
              <User size={40} className="text-gray-400" />
           </div>
-          <h2 className="text-xl font-bold">{user?.full_name || 'Nguyễn Văn A'}</h2>
+          <h2 className="text-xl font-bold">{user?.full_name}</h2>
           <p className="text-gray-500 text-sm mt-1">{user?.email}</p>
         </div>
 

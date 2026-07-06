@@ -21,7 +21,10 @@ export default function LoginPage() {
     try {
       await login({ email, password });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed. Please check your credentials.');
+      const errorMsg = err instanceof Error 
+        ? err.message 
+        : (err as { message?: string })?.message || 'Login failed. Please check your credentials.';
+      setError(errorMsg.replace(/^\[.*?\]\s*/, ''));
     } finally {
       setLoading(false);
     }

@@ -21,8 +21,11 @@ export default function RegisterPage() {
     
     try {
       await register({ email, password, full_name: fullName });
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Registration failed. Please check your details.');
+    } catch (err) {
+      const errorMsg = err instanceof Error 
+        ? err.message 
+        : (err as { message?: string })?.message || 'Registration failed. Please check your details.';
+      setError(errorMsg.replace(/^\[.*?\]\s*/, ''));
     } finally {
       setLoading(false);
     }
