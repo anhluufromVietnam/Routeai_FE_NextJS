@@ -15,14 +15,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/brand/favicon.svg", type: "image/svg+xml" },
+      { url: "/brand/05_app_icon_navy_tile_192.png", sizes: "192x192", type: "image/png" },
       { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
     ],
-    apple: "/brand/apple-touch-icon.png",
+    apple: "/brand/apple-touch-icon-navy.png",
   },
   openGraph: {
     title: "R:t — Smarter Routes. Faster Deliveries.",
     description: "Đúng tuyến. Đúng thời gian. Cùng R:t.",
-    images: ["/brand/logo-light.png"],
+    images: ["/brand/og-image.png"],
   },
 };
 
