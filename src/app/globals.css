@@ -45,6 +45,18 @@ html, body {
   background-color: var(--color-bg-app);
   color: var(--color-text-main);
   line-height: 1.5;
+  /* Native-like feel: disable tap highlight, overscroll bounce, text selection callout */
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  /* Prevent pull-to-refresh from breaking app-like feel */
+  position: fixed;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 a {
@@ -130,20 +142,23 @@ button {
 .driver-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
   background-color: var(--color-bg-surface);
   box-shadow: 0 0 20px rgba(0,0,0,0.05);
   position: relative;
   overflow: hidden;
+  /* Notch / Dynamic Island safe-area */
+  padding-top: env(safe-area-inset-top);
 }
 
 .driver-content {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 70px; /* space for bottom nav */
+  padding-bottom: calc(70px + env(safe-area-inset-bottom)); /* space for bottom nav */
   background-color: var(--color-bg-app);
+  -webkit-overflow-scrolling: touch;
 }
 
 .driver-bottom-nav {
@@ -151,7 +166,8 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 65px;
+  min-height: 65px;
+  padding-bottom: env(safe-area-inset-bottom);
   background-color: var(--color-bg-surface);
   border-top: 1px solid var(--color-border);
   display: flex;
@@ -235,4 +251,13 @@ button {
 /* R:t Brand Gradient — Deep Navy to Route Blue */
 .brand-gradient {
   background: linear-gradient(135deg, #0B1F3B 0%, #2F80FF 100%);
+}
+
+/* Native safe-area helpers for fixed bottom bars */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.fixed-bottom-bar {
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
 }
