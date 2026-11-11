@@ -25,13 +25,13 @@ export function PaymentSuccessBanner({
         gap: 10,
       }}
     >
-      <CheckCircle2 size={32} color="#16a34a" />
+      <CheckCircle2 size={32} color="#10b981" />
       <div>
         <div style={{ fontWeight: 800, color: '#166534', fontSize: '1.1rem' }}>
           Subscription Activated Successfully!
         </div>
         <div style={{ color: '#15803d', fontSize: '0.88rem' }}>
-          Airwallex has verified payment from {bankName} (Ref: {referenceCode}). Your RouteAI enterprise fleet license is now active!
+          Airwallex has verified payment from {bankName} (Ref: {referenceCode}). Your R:t enterprise fleet license is now active!
         </div>
       </div>
     </div>

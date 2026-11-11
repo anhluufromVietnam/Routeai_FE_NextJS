@@ -31,7 +31,7 @@ export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
       'Up to 25 active drivers / vehicles',
       'Real-time traffic rerouting & weather alerts (Snow/Ice)',
       'Advanced reporting with CRA-compliant expense export',
-      'Full RouteAI API access & integrations',
+      'Full R:t API access & integrations',
       'Fast Interac e-Transfer automated reconciliation',
       'Priority Canadian phone & chat support',
     ],

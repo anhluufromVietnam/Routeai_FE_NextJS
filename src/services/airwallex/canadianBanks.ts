@@ -17,7 +17,7 @@ export const CANADIAN_BANKS: CanadianBankApp[] = [
     id: 'dcb',
     name: 'Digital Commerce Bank (DCBank)',
     shortName: 'DCBank',
-    logoColor: '#0f172a',
+    logoColor: '#0B1F3B',
     institutionNumber: '352',
     category: 'company',
     featured: true,

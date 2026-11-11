@@ -85,7 +85,7 @@ export function BankTransferVoucher({
       <div className={styles.voucherBox}>
         <div className={styles.voucherHeader}>
           <div>
-            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#bfdbfe', fontWeight: 700 }}>
+            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#B4D2FE', fontWeight: 700 }}>
               Copy & Paste to your {selectedBank.name} App
             </div>
             <div style={{ fontSize: '1.2rem', fontWeight: 800 }}>
@@ -93,7 +93,7 @@ export function BankTransferVoucher({
             </div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '0.75rem', color: '#bfdbfe' }}>Amount:</div>
+            <div style={{ fontSize: '0.75rem', color: '#B4D2FE' }}>Amount:</div>
             <div style={{ fontSize: '1.25rem', fontWeight: 800 }}>C${totalAmountCad} CAD</div>
           </div>
         </div>
@@ -104,7 +104,7 @@ export function BankTransferVoucher({
             <div className={styles.voucherRow}>
               <span className={styles.voucherLabel}>Interac Autodeposit Email:</span>
               <div className={styles.voucherValue}>
-                <span style={{ color: '#1d4ed8', fontSize: '1.05rem' }}>
+                <span style={{ color: '#1A66E8', fontSize: '1.05rem' }}>
                   {CANADA_CONFIG.bankDetails.autodepositEmail}
                 </span>
                 <button
@@ -132,17 +132,17 @@ export function BankTransferVoucher({
             </div>
 
             <div className={`${styles.voucherRow} ${styles.voucherRowHighlighted}`}>
-              <span className={styles.voucherLabel} style={{ color: '#1e3a8a', fontWeight: 700 }}>
+              <span className={styles.voucherLabel} style={{ color: '#142E52', fontWeight: 700 }}>
                 Payment Reference / Message:
               </span>
               <div className={styles.voucherValue}>
-                <span style={{ fontSize: '1.2rem', color: '#1e3a8a', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '1.2rem', color: '#142E52', letterSpacing: '0.05em' }}>
                   {referenceCode}
                 </span>
                 <button
                   type="button"
                   className={styles.copyBtn}
-                  style={{ background: '#2563eb', color: 'white', border: 'none' }}
+                  style={{ background: '#2F80FF', color: 'white', border: 'none' }}
                   onClick={() => handleCopy(referenceCode, 'ref')}
                 >
                   <Copy size={13} /> {copiedField === 'ref' ? 'Copied!' : 'Copy Reference'}
@@ -169,7 +169,7 @@ export function BankTransferVoucher({
             <div className={styles.voucherRow}>
               <span className={styles.voucherLabel}>Bank Account Number:</span>
               <div className={styles.voucherValue}>
-                <span style={{ color: '#2563eb', fontSize: '1.1rem' }}>
+                <span style={{ color: '#2F80FF', fontSize: '1.1rem' }}>
                   {CANADA_CONFIG.bankDetails.accountNumber}
                 </span>
                 <button
@@ -204,15 +204,15 @@ export function BankTransferVoucher({
             </div>
 
             <div className={`${styles.voucherRow} ${styles.voucherRowHighlighted}`}>
-              <span className={styles.voucherLabel} style={{ color: '#1e3a8a', fontWeight: 700 }}>
+              <span className={styles.voucherLabel} style={{ color: '#142E52', fontWeight: 700 }}>
                 Transfer Memo / Reference:
               </span>
               <div className={styles.voucherValue}>
-                <span style={{ fontSize: '1.2rem', color: '#1e3a8a' }}>{referenceCode}</span>
+                <span style={{ fontSize: '1.2rem', color: '#142E52' }}>{referenceCode}</span>
                 <button
                   type="button"
                   className={styles.copyBtn}
-                  style={{ background: '#2563eb', color: 'white', border: 'none' }}
+                  style={{ background: '#2F80FF', color: 'white', border: 'none' }}
                   onClick={() => handleCopy(referenceCode, 'ref')}
                 >
                   <Copy size={13} /> Copy
@@ -225,7 +225,7 @@ export function BankTransferVoucher({
 
       {/* Button chuyển sang App Ngân hàng hoặc chuyển hướng tải */}
       <div className={styles.appLauncherBox}>
-        <div style={{ fontSize: '0.9rem', color: '#334155', marginBottom: '0.75rem', fontWeight: 600 }}>
+        <div style={{ fontSize: '0.9rem', color: '#6b7280', marginBottom: '0.75rem', fontWeight: 600 }}>
           Launch your <strong>{selectedBank.name}</strong> app to paste details and complete transfer:
         </div>
 
@@ -240,13 +240,13 @@ export function BankTransferVoucher({
           <ExternalLink size={18} />
         </button>
 
-        <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '0.6rem' }}>
+        <div style={{ fontSize: '0.78rem', color: '#6b7280', marginTop: '0.6rem' }}>
           * Automatically launches the {selectedBank.shortName} mobile app on iOS/Android. If not installed, you will be redirected to the App Store / Google Play to download. On desktop, opens web banking.
         </div>
       </div>
 
       {/* Nút kiểm tra sau khi chuyển khoản */}
-      <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '1.5rem', display: 'flex', gap: 12, alignItems: 'center' }}>
+      <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '1.5rem', display: 'flex', gap: 12, alignItems: 'center' }}>
         <button
           type="button"
           className={styles.primaryButton}

@@ -26,7 +26,7 @@ export function PlanSelector({
       <div className={styles.toolbar}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <span style={{ fontSize: '1.25rem' }}>🇨🇦</span>
-          <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '1rem' }}>
+          <span style={{ fontWeight: 800, color: '#0B1F3B', fontSize: '1rem' }}>
             Canadian Fleet Billing (CAD)
           </span>
         </div>
@@ -44,13 +44,13 @@ export function PlanSelector({
             className={`${styles.toggleBtn} ${billingCycle === 'yearly' ? styles.toggleBtnActive : ''}`}
             onClick={() => onBillingCycleChange('yearly')}
           >
-            Annual Billing <span style={{ color: '#16a34a', fontSize: '0.75rem' }}>(Save 15%)</span>
+            Annual Billing <span style={{ color: '#10b981', fontSize: '0.75rem' }}>(Save 15%)</span>
           </button>
         </div>
       </div>
 
       {/* Title */}
-      <div style={{ marginBottom: '1.5rem', fontWeight: 800, fontSize: '1.2rem', color: '#0f172a' }}>
+      <div style={{ marginBottom: '1.5rem', fontWeight: 800, fontSize: '1.2rem', color: '#0B1F3B' }}>
         Step 1: Choose Your Subscription Plan
       </div>
 
