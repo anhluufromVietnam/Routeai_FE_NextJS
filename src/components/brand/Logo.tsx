@@ -2,6 +2,12 @@
 
 import type { CSSProperties } from "react";
 
+/**
+ * R:t logo — vector traced from the canonical brand pack (01/02/03).
+ * NAVY #001031 · ROUTE BLUE #1B78FE
+ * viewBox: monogram 132×108 · wordmark 246×110
+ */
+
 type LogoVariant = "light" | "dark";
 
 interface LogoBaseProps {
@@ -12,18 +18,25 @@ interface LogoBaseProps {
   title?: string;
 }
 
-const glyph = (variant: LogoVariant) => (variant === "dark" ? "#FFFFFF" : "#0B1F3B");
-const ACCENT = "#2F80FF";
+const MONOGRAM_D = "M38.5 12L38.44 11L37.5 10L37.5 9L36.5 8L36.5 7L31 1.6L30 1.5L29 0.62L27 0.5L25 -0.5L21 -0.5L19 0.5L17 0.5L16 1.5L15 1.5L11.98 4L11.45 5L8.61 8L8.49 9L7.5 11L7.43 16L7.54 20L8.49 21L8.5 22L9.49 23L9.62 24L13 27.5L14 27.52L16 29.39L18 29.52L19 30.5L27 30.42L28 29.5L29 29.5L30 28.5L31 28.5L33 26.5L34 25.89L37.17 22L37.6 20L38.5 19L38.5 12ZM131.5 104L130.5 102L127.56 99L127.23 98L126.48 97L122.5 93L122.34 92L117.66 87L117.49 86L113.5 82L113.21 81L112.5 80L109.54 77L109.35 76L105.5 72L104.69 71L104.5 70L102.5 68L104 66.57L105 66.5L108 65.11L110 63.68L111 63.5L112 62.5L115 60.5L118.34 57L118.74 56L121.15 53L121.5 52L122.5 51L122.5 50L123.5 49L123.75 47L124.5 46L124.67 44L125.5 43L125.53 39L126.27 38L126.48 37L126.34 33L125.5 31L125.5 27L124.81 26L124.5 24L123.5 22L123.45 21L122.5 20L122.45 19L120.5 17L120.5 16L113 8.5L111 7.5L110 6.5L109 6.5L108 5.5L107 5.5L106 4.5L104 4.26L103 3.5L102 3.5L100 2.5L97 2.49L95 1.5L49 1.5L46.5 4L46.5 21L47.5 23L49 24.5L87 24.5L88 25.5L90 25.76L94.49 30L94.5 31L95.47 32L95.45 40L94.5 41L94.49 42L91 45.5L90 45.5L89 46.5L87 46.5L86 47.33L45 47.5L44 48.45L42 48.5L41 49.17L39 49.61L38 50.5L37 50.62L34 53.3L33 53.75L31.49 56L28.5 59L28.43 60L25.72 63L25.49 64L22.5 67L22.42 68L20.5 70L19.49 72L17.5 74L16.79 75L16.49 76L14.5 78L13.49 80L10.66 83L10.49 84L8.5 86L7.49 88L5.5 90L5.33 91L3.5 93L3.49 94L2.5 95L2.49 96L1.5 97L1.49 98L0.5 99L0.49 100L-0.5 101L-0.5 102L0.43 103L0.5 104L2 105.5L3 105.51L4 106.5L5 106.5L6 107.28L7 107.5L13 107.5L14 106.5L15 106.5L19.18 102L19.5 101L22.48 98L22.72 97L25.5 94L26.5 92L29.24 89L29.5 88L32.5 85L33.5 83L35.5 81L36.21 80L36.5 79L39.24 76L39.54 75L44 70.5L45 70.48L46 69.5L47 69.5L48 68.66L51 68.5L53 67.58L56 67.5L58 67.63L60 68.5L63 68.5L66 70.31L67 70.58L70.49 74L71.35 75L71.66 76L77.49 82L79.5 85L85.49 91L86.5 93L90.49 97L92.56 100L100 107.5L130 107.5L131.5 106L131.5 104Z";
+const MONOGRAM_BAR_D = "M60.5 83L60.49 82L59.5 81L59.36 80L58 78.5L55 77.51L54 77.5L52 77.82L51 78.5L50 78.5L47 81.23L43.7 85L42.5 87L41.55 88L40.5 90L37.61 93L36.5 95L34.59 97L32.5 100L30.5 102L28.5 105L28.5 106L30 107.5L42 107.5L45.5 104L47.5 101L49.5 99L50.5 97L53.5 94L55.5 91L58.32 88L59.5 86L60.5 85L60.5 83Z";
+const WORDMARK_D = "M38.5 11L37.5 10L37.5 9L36.5 8L36.5 7L31 1.5L30 1.5L29 0.5L27 0.5L26 -0.5L20 -0.5L19 0.5L17 0.5L16 1.5L15 1.5L13 3.25L12 3.5L11.5 4L11.34 5L8.5 8L8.5 9L7.5 10L7.25 16L7.5 17L7.5 20L8.5 21L8.5 22L9.5 23L9.5 24L13 27.5L14 27.54L16 29.5L18 29.6L19 30.5L27 30.5L28 29.5L29 29.5L30 28.5L31 28.5L33 26.5L34 26.5L34.5 26L34.6 25L37.5 22L37.5 21L38.5 19L38.5 11ZM131.5 103L127.66 99L127.5 98L122.5 93L122.5 92L118.5 88L118.25 87L117.5 86L113.5 82L113.5 81L110.5 78L109.66 77L109.5 76L105.5 72L104.5 70L102.5 68L104 66.75L106 66.5L107 65.5L108 65.5L109 64.5L110 64.5L112 62.5L113 62.5L119.5 56L119.5 55L121.5 53L121.5 52L122.5 51L122.5 50L123.5 49L123.5 48L124.5 47L124.5 45L125.33 44L125.5 43L125.6 39L126.5 38L126.5 32L125.5 31L125.5 27L125.33 26L124.5 25L124.5 23L123.5 22L123.5 21L122.5 20L122.5 19L120.5 17L120.5 16L116.75 12L112 7.55L111 7.5L110 6.5L109 6.5L108 5.5L107 5.5L106 4.5L105 4.5L104 3.55L102 3.5L101 2.55L97 2.46L96 1.5L49 1.5L46.5 4L46.55 22L49 24.5L87 24.5L88 25.5L89 25.5L90 26.25L91 26.5L94.5 30L94.5 31L95.46 32L95.5 39L95.34 40L94.5 41L94.5 42L91 45.5L90 45.5L89 46.5L87 46.5L85 47.5L45 47.5L44 48.25L41 48.67L40 49.5L39 49.5L38 50.5L37 50.5L35 52.5L34 52.75L31.5 55L31.5 56L28.5 59L28.25 60L27.5 61L25.5 63L25.5 64L22.5 67L22.25 68L21.5 69L19.5 71L19.5 72L16.5 75L16.5 76L13.5 79L13.5 80L10.5 83L10.5 84L7.6 87L7.5 88L4.67 91L4.5 92L3.5 93L3.5 94L2.5 95L2.5 96L1.5 97L1.5 98L0.5 99L0.5 100L-0.5 101L-0.5 102L0.34 103L0.5 104L2 105.5L3 105.54L4 106.5L5 106.5L6 107.5L13 107.5L14 106.5L15 106.5L19.5 102L19.5 101L23.5 97L23.5 96L26.5 93L26.5 92L29.5 89L29.5 88L33.5 84L33.5 83L36.5 80L36.5 79L39.5 76L39.66 75L40.5 74L44 70.5L45 70.5L46 69.5L48 69.25L49 68.5L52 68.5L53 67.75L54 67.5L56 67.5L57 67.54L58 68.25L59 68.5L63 68.5L64 69.5L65 69.5L66 70.5L67 70.75L69 72.5L70.5 74L71.5 76L77.5 82L77.75 83L78.5 84L85.5 91L85.5 92L90.5 97L90.67 98L91.5 99L97.46 105L98 106.25L99 106.5L100 107.5L130 107.5L131.5 106L131.5 103ZM244.6 103L244.5 95L243.75 94L243.5 93L243.5 87L242 85.5L239 85.5L238 86.5L234 86.5L232 87.5L231 87.4L230 86.55L227 86.5L226 85.5L225 85.5L223.5 84L222.5 82L222.5 81L221.75 80L221.5 79L221.5 50L222 49.5L231 49.5L233 49.33L236 48.6L241 48.5L241.5 48L241.5 31L240 29.5L222 29.5L221.5 29L221.5 10L221 9.5L203 9.5L200.5 12L200.5 13L199.5 14L199.5 29L199 29.5L189 29.5L188 29.86L186.5 31L186.5 47L188 48.5L195 48.75L196 49.25L198 49.5L199 49.14L199.5 50L199.6 86L200.5 87L200.5 90L201.5 92L201.5 93L202.5 94L202.5 95L203.5 96L203.5 97L205.5 99L205.6 100L207 101.5L209 102.5L211 104.5L212 104.5L213 105.5L214 105.5L215 106.5L218 106.75L219 107.5L224 107.5L226 108.5L230 108.5L231 107.75L232 107.5L237 107.5L238 106.5L241 106.5L242 105.5L243 105.5L244.5 104L244.6 103ZM175.5 41L175.33 40L174.5 39L174.4 37L169 31.5L168 31.46L167 30.5L165 30.5L163 29.5L161 29.5L160 30.5L158 30.5L157 31.5L156 31.5L151.5 36L151.5 37L150.5 38L150.4 43L150.5 47L151.5 48L152.5 50L155 52.5L156 52.5L157 53.5L158 53.5L159 54.5L167 54.5L168 53.5L169 53.5L173.5 49L173.5 48L174.5 47L174.5 45L175.5 44L175.5 41ZM175.5 85L174.5 83L174.5 82L173.5 81L173.5 80L169 75.5L168 75.5L167 74.5L158 74.55L156 76.5L155 76.5L152.5 79L152.5 80L151.5 81L150.5 83L150.34 87L150.5 91L152.46 93L152.5 94L155 96.5L156 96.5L157 97.5L158 97.5L159 98.5L167 98.45L168 97.5L169 97.5L173.5 93L173.5 92L174.5 91L174.5 89L175.5 88L175.5 85Z";
+const WORDMARK_BAR_D = "M60.5 82L59.5 81L59.5 80L57 77.5L52 77.5L51 78.5L50 78.5L48 80.5L47 80.5L46.5 81L46.5 82L44 84.5L43 83.46L42 83.46L40 81.4L39.4 82L39.46 83L41.46 85L41.5 86L42.5 87L40.5 89L40.5 90L36.5 94L36.5 95L32.5 99L32.5 100L28.4 104L28.5 106L30 107.5L42 107.5L47.5 102L47.5 101L50.5 98L50.5 97L55.5 92L55.5 91L59.5 87L59.5 86L60.5 85L60.5 82Z";
+const ACCENT = "#1B78FE";
 
 function LogoSvg({
   viewBox,
+  width,
+  height,
   className,
   style,
   title,
   children,
-}: LogoBaseProps & { viewBox: string; children: React.ReactNode }) {
+}: LogoBaseProps & { viewBox: string; width: number; height: number; children: React.ReactNode }) {
   return (
     <svg
+      width={width}
+      height={height}
       viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -37,88 +50,37 @@ function LogoSvg({
   );
 }
 
-/** Icon mark: Dynamic R + Smart Route Bar + Destination Dot. Tỉ lệ gốc 120×150. */
+/** Icon mark: chữ R với Smart Route Bar. Tỉ lệ gốc 132×108. */
 export function LogoMark({ variant = "light", className, style, title }: LogoBaseProps) {
-  const c = glyph(variant);
   return (
-    <LogoSvg viewBox="0 0 120 150" variant={variant} className={className} style={style} title={title}>
-      <g transform="skewX(-8)">
-        <path d="M14 25 H36 V135 H14 Z" fill={c} />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M36 25 H57 C78.5 25 89 36.5 89 52.5 C89 68.5 78.5 80 57 80 H36 V59.5 H55.5 C61.5 59.5 65 56.8 65 52.5 C65 48.2 61.5 45.5 55.5 45.5 H36 Z"
-          fill={c}
-        />
-        <path d="M36 80 H58 L88 135 H61 Z" fill={c} />
-        <path d="M45.5 88 H57.5 L75 127 H63 Z" fill={ACCENT} />
-      </g>
-      <circle cx="97" cy="11" r="8.5" fill={ACCENT} />
+    <LogoSvg viewBox="0 0 132 108" width={132} height={108} variant={variant} className={className} style={style} title={title}>
+      <path fill={variant === "dark" ? "#FFFFFF" : "#001031"} fillRule="nonzero" d={MONOGRAM_D} />
+      <path fill={ACCENT} fillRule="nonzero" d={MONOGRAM_BAR_D} />
     </LogoSvg>
   );
 }
 
-/** Wordmark đầy đủ: R_t với Destination Dot. Tỉ lệ gốc 250×150. */
+/** Wordmark đầy đủ R:t. Tỉ lệ gốc 246×110. */
 export function LogoWordmark({ variant = "light", className, style, title }: LogoBaseProps) {
-  const c = glyph(variant);
   return (
-    <LogoSvg viewBox="0 0 250 150" variant={variant} className={className} style={style} title={title}>
-      <g transform="skewX(-8)">
-        <rect x="34" y="25" width="22" height="110" rx="6" fill={c} />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M56 25 H77 C98.5 25 109 36.5 109 52.5 C109 68.5 98.5 80 77 80 H56 V59.5 H75.5 C81.5 59.5 85 56.8 85 52.5 C85 48.2 81.5 45.5 75.5 45.5 H56 Z"
-          fill={c}
-        />
-        <path d="M56 80 H78 L108 135 H81 Z" fill={c} />
-        <path d="M65.5 88 H77.5 L95 127 H83 Z" fill={ACCENT} />
-        <rect x="126" y="38" width="18" height="18" rx="9" fill={c} />
-        <rect x="126" y="88" width="18" height="18" rx="9" fill={c} />
-        <rect x="160" y="25" width="68" height="22" rx="6" fill={c} />
-        <rect x="178" y="25" width="22" height="110" rx="6" fill={c} />
-      </g>
-      <circle cx="117" cy="11" r="8.5" fill={ACCENT} />
+    <LogoSvg viewBox="0 0 246 110" width={246} height={110} variant={variant} className={className} style={style} title={title}>
+      <path fill={variant === "dark" ? "#FFFFFF" : "#001031"} fillRule="nonzero" d={WORDMARK_D} />
+      <path fill={ACCENT} fillRule="nonzero" d={WORDMARK_BAR_D} />
     </LogoSvg>
   );
 }
 
-/** Lockup: icon mark bên trái + wordmark bên phải. */
+/** Lockup: monogram + wordmark cạnh nhau. */
 export function LogoLockup({ variant = "light", className, style, title }: LogoBaseProps) {
-  const c = glyph(variant);
   return (
-    <LogoSvg viewBox="0 0 400 150" variant={variant} className={className} style={style} title={title}>
-      <g transform="translate(8 0)">
-        <g transform="skewX(-8)">
-          <path d="M14 25 H36 V135 H14 Z" fill={c} />
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M36 25 H57 C78.5 25 89 36.5 89 52.5 C89 68.5 78.5 80 57 80 H36 V59.5 H55.5 C61.5 59.5 65 56.8 65 52.5 C65 48.2 61.5 45.5 55.5 45.5 H36 Z"
-            fill={c}
-          />
-          <path d="M36 80 H58 L88 135 H61 Z" fill={c} />
-          <path d="M45.5 88 H57.5 L75 127 H63 Z" fill={ACCENT} />
-        </g>
-        <circle cx="97" cy="11" r="8.5" fill={ACCENT} />
+    <LogoSvg viewBox="0 0 410 110" width={410} height={110} variant={variant} className={className} style={style} title={title}>
+      <g transform="translate(8 1)">
+        <path fill={variant === "dark" ? "#FFFFFF" : "#001031"} fillRule="nonzero" d={MONOGRAM_D} />
+        <path fill={ACCENT} fillRule="nonzero" d={MONOGRAM_BAR_D} />
       </g>
-      <g transform="translate(146 0)">
-        <g transform="skewX(-8)">
-          <rect x="34" y="25" width="22" height="110" rx="6" fill={c} />
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M56 25 H77 C98.5 25 109 36.5 109 52.5 C109 68.5 98.5 80 77 80 H56 V59.5 H75.5 C81.5 59.5 85 56.8 85 52.5 C85 48.2 81.5 45.5 75.5 45.5 H56 Z"
-            fill={c}
-          />
-          <path d="M56 80 H78 L108 135 H81 Z" fill={c} />
-          <path d="M65.5 88 H77.5 L95 127 H83 Z" fill={ACCENT} />
-          <rect x="126" y="38" width="18" height="18" rx="9" fill={c} />
-          <rect x="126" y="88" width="18" height="18" rx="9" fill={c} />
-          <rect x="160" y="25" width="68" height="22" rx="6" fill={c} />
-          <rect x="178" y="25" width="22" height="110" rx="6" fill={c} />
-        </g>
-        <circle cx="117" cy="11" r="8.5" fill={ACCENT} />
+      <g transform="translate(164 0)">
+        <path fill={variant === "dark" ? "#FFFFFF" : "#001031"} fillRule="nonzero" d={WORDMARK_D} />
+        <path fill={ACCENT} fillRule="nonzero" d={WORDMARK_BAR_D} />
       </g>
     </LogoSvg>
   );
