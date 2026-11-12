@@ -20,6 +20,14 @@ export const metadata: Metadata = {
     ],
     apple: "/brand/apple-touch-icon-navy.png",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "R:t",
+  },
+  formatDetection: {
+    telephone: true,
+  },
   openGraph: {
     title: "R:t — Smarter Routes. Faster Deliveries.",
     description: "Đúng tuyến. Đúng thời gian. Cùng R:t.",
@@ -28,6 +36,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
   themeColor: "#0F1B38",
 };
 
