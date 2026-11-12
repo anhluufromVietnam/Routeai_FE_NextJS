@@ -1,6 +1,7 @@
 .shell {
   display: flex;
-  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background-color: var(--color-bg-app);
   font-family: var(--font-family-base);
 }
@@ -8,6 +9,7 @@
 .sidebar {
   width: 260px;
   flex-shrink: 0;
+  overflow-y: auto;
   background-color: var(--color-bg-sidebar);
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 2px, transparent 2.5px);
   background-size: 28px 28px;
@@ -80,8 +82,11 @@
 
 .main {
   flex: 1;
+  min-width: 0;
   padding: 2rem;
   max-width: 960px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .loading {

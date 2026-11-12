@@ -1,13 +1,15 @@
 .container {
   display: flex;
-  min-height: 100vh;
-  align-items: center;
+  height: 100dvh;
+  overflow-y: auto;
+  align-items: flex-start;
   justify-content: center;
   background-color: var(--color-bg-app);
   background-image: radial-gradient(circle, rgba(59, 130, 246, 0.08) 2px, transparent 2.5px);
   background-size: 28px 28px;
   font-family: var(--font-family-base);
   padding: 1rem;
+  -webkit-overflow-scrolling: touch;
 }
 
 .card {
