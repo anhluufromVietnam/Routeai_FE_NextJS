@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 import styles from '@/app/login/page.module.css';
-import { LogoLockup } from '@/components/brand/Logo';
+import Image from 'next/image';
 
 export default function AdminLoginPage() {
   const { login } = useAdmin();
@@ -30,7 +30,14 @@ export default function AdminLoginPage() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.logoWrap}>
-          <LogoLockup variant="light" />
+          <Image
+            src="/brand/01_logo_primary.png"
+            alt="R:t — Smarter Routes. Faster Deliveries."
+            width={148}
+            height={72}
+            priority
+            className={styles.logo}
+          />
         </div>
         <h1 className={styles.title}>Quản trị hệ thống</h1>
         <p className={styles.subtitle}>Đăng nhập khu vực admin — tách biệt tài khoản tài xế</p>
