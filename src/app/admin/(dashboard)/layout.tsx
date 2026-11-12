@@ -23,6 +23,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   const nav = [
+    { href: '/admin/overview', label: 'Tổng quan vận hành' },
     { href: '/admin', label: 'Cấu hình hệ thống' },
     { href: '/admin/users', label: 'Người dùng' },
   ];

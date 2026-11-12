@@ -15,8 +15,8 @@ export function PaymentSuccessBanner({
   return (
     <div
       style={{
-        background: '#dcfce7',
-        border: '1px solid #86efac',
+        background: 'var(--color-success-light)',
+        border: '1px solid var(--color-success-light)',
         borderRadius: 10,
         padding: '1.25rem',
         marginTop: '1.25rem',
@@ -25,12 +25,12 @@ export function PaymentSuccessBanner({
         gap: 10,
       }}
     >
-      <CheckCircle2 size={32} color="#10b981" />
+      <CheckCircle2 size={32} color="var(--color-success)" />
       <div>
-        <div style={{ fontWeight: 800, color: '#166534', fontSize: '1.1rem' }}>
+        <div style={{ fontWeight: 800, color: 'var(--color-success)', fontSize: '1.1rem' }}>
           Subscription Activated Successfully!
         </div>
-        <div style={{ color: '#15803d', fontSize: '0.88rem' }}>
+        <div style={{ color: 'var(--color-success)', fontSize: '0.88rem' }}>
           Airwallex has verified payment from {bankName} (Ref: {referenceCode}). Your R:t enterprise fleet license is now active!
         </div>
       </div>

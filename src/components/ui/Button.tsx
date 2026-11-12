@@ -6,7 +6,7 @@ type ButtonSize = "sm" | "md" | "lg";
 const BUTTON_STYLES = `
 .rt-btn { transition: filter .15s ease, opacity .15s ease, background-color .15s ease, border-color .15s ease; }
 .rt-btn-primary { background-color: var(--color-primary); color: #ffffff; }
-.rt-btn-primary:hover:not(:disabled) { background-color: #2563EB; }
+.rt-btn-primary:hover:not(:disabled) { background-color: var(--color-primary-hover); }
 .rt-btn-secondary { background-color: var(--color-bg-surface); color: var(--color-navy); border: 1px solid var(--color-border); }
 .rt-btn-secondary:hover:not(:disabled) { background-color: var(--color-primary-light); border-color: var(--color-primary); }
 .rt-btn-ghost { background-color: transparent; color: var(--color-primary); }

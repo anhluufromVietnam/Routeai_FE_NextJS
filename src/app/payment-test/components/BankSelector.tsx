@@ -35,7 +35,7 @@ export function BankSelector({
 
   return (
     <>
-      <p style={{ color: '#6b7280', fontSize: '0.9rem', margin: '0 0 1rem 0' }}>
+      <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', margin: '0 0 1rem 0' }}>
         Select your Canadian financial institution. We support 250+ banks, credit unions, and fintechs on the Interac e-Transfer network.
       </p>
 
@@ -112,10 +112,10 @@ export function BankSelector({
               <div className={styles.bankLogoCircle} style={{ backgroundColor: b.logoColor }}>
                 {b.shortName}
               </div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#0B1F3B', lineHeight: 1.25 }}>
+              <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-main)', lineHeight: 1.25 }}>
                 {b.name}
               </div>
-              <div style={{ fontSize: '0.67rem', color: '#6b7280', marginTop: 3 }}>
+              <div style={{ fontSize: '0.67rem', color: 'var(--color-text-muted)', marginTop: 3 }}>
                 {b.institutionNumber ? `Inst: ${b.institutionNumber}` : 'Interac Network'}
               </div>
             </div>
@@ -130,9 +130,9 @@ export function BankSelector({
             padding: '1.5rem',
             background: '#F4F7FC',
             borderRadius: 10,
-            border: '1px dashed #e5e7eb',
+            border: '1px dashed var(--color-border-light)',
             marginBottom: '1.5rem',
-            color: '#6b7280',
+            color: 'var(--color-text-muted)',
             fontSize: '0.9rem',
           }}
         >

@@ -27,7 +27,7 @@ export default function NavigatePage() {
       </div>
 
       {/* Map Background (Mockup) */}
-      <div className="flex-1 bg-gray-200 relative overflow-hidden" style={{ flex: 1, backgroundColor: '#e5e7eb', position: 'relative', overflow: 'hidden' }}>
+      <div className="flex-1 bg-gray-200 relative overflow-hidden" style={{ flex: 1, backgroundColor: 'var(--color-border-light)', position: 'relative', overflow: 'hidden' }}>
         {/* Simple map grid lines */}
         <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(#d1d5db 1px, transparent 1px), linear-gradient(90deg, #d1d5db 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.5 }}></div>
         
@@ -54,10 +54,10 @@ export default function NavigatePage() {
 
         {/* Next Point Marker */}
         <div className="absolute" style={{ left: 100, top: 50, transform: 'translate(-50%, -100%)', zIndex: 10 }}>
-           <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-lg border-2 border-white" style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#3B82F6', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', border: '2px solid white' }}>
+           <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-lg border-2 border-white" style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', border: '2px solid white' }}>
             1
           </div>
-          <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-blue-600 mx-auto" style={{ width: 0, height: 0, borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '8px solid #3B82F6', margin: '0 auto', marginTop: '-2px' }}></div>
+          <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-blue-600 mx-auto" style={{ width: 0, height: 0, borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '8px solid var(--color-primary)', margin: '0 auto', marginTop: '-2px' }}></div>
         </div>
 
         {/* Floating Actions Right */}
@@ -91,17 +91,17 @@ export default function NavigatePage() {
         {/* Stats Row */}
         <div className="flex items-center justify-between p-4 border-b border-gray-100" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', borderBottom: '1px solid #f3f4f6' }}>
           <div className="text-center" style={{ textAlign: 'center' }}>
-            <div className="text-gray-500 text-xs font-medium uppercase mb-1" style={{ color: '#6b7280', fontSize: '0.75rem', fontWeight: 500, textTransform: 'uppercase', marginBottom: '4px' }}>ETA</div>
+            <div className="text-gray-500 text-xs font-medium uppercase mb-1" style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', fontWeight: 500, textTransform: 'uppercase', marginBottom: '4px' }}>ETA</div>
             <div className="font-bold text-lg text-gray-800" style={{ fontWeight: 'bold', fontSize: '1.125rem', color: '#1f2937' }}>08:45</div>
           </div>
-          <div className="w-px h-10 bg-gray-200" style={{ width: '1px', height: '40px', backgroundColor: '#e5e7eb' }}></div>
+          <div className="w-px h-10 bg-gray-200" style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border-light)' }}></div>
           <div className="text-center" style={{ textAlign: 'center' }}>
-            <div className="text-gray-500 text-xs font-medium uppercase mb-1" style={{ color: '#6b7280', fontSize: '0.75rem', fontWeight: 500, textTransform: 'uppercase', marginBottom: '4px' }}>Còn lại</div>
+            <div className="text-gray-500 text-xs font-medium uppercase mb-1" style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', fontWeight: 500, textTransform: 'uppercase', marginBottom: '4px' }}>Còn lại</div>
             <div className="font-bold text-lg text-gray-800" style={{ fontWeight: 'bold', fontSize: '1.125rem', color: '#1f2937' }}>18 điểm</div>
           </div>
-          <div className="w-px h-10 bg-gray-200" style={{ width: '1px', height: '40px', backgroundColor: '#e5e7eb' }}></div>
+          <div className="w-px h-10 bg-gray-200" style={{ width: '1px', height: '40px', backgroundColor: 'var(--color-border-light)' }}></div>
           <div className="text-center" style={{ textAlign: 'center' }}>
-            <div className="text-gray-500 text-xs font-medium uppercase mb-1" style={{ color: '#6b7280', fontSize: '0.75rem', fontWeight: 500, textTransform: 'uppercase', marginBottom: '4px' }}>Còn lại</div>
+            <div className="text-gray-500 text-xs font-medium uppercase mb-1" style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', fontWeight: 500, textTransform: 'uppercase', marginBottom: '4px' }}>Còn lại</div>
             <div className="font-bold text-lg text-gray-800" style={{ fontWeight: 'bold', fontSize: '1.125rem', color: '#1f2937' }}>3h 25m</div>
           </div>
         </div>

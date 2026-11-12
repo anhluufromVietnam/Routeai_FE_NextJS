@@ -20,7 +20,7 @@ export default function WeatherInfoPage() {
         
         {/* Overview Stats */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '16px', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', border: '1px solid #f3f4f6' }}>
-          <h2 className="text-gray-500 font-medium text-sm mb-4 uppercase" style={{ color: '#6b7280', fontWeight: 500, fontSize: '0.875rem', marginBottom: '16px', textTransform: 'uppercase' }}>Tổng quan</h2>
+          <h2 className="text-gray-500 font-medium text-sm mb-4 uppercase" style={{ color: 'var(--color-text-muted)', fontWeight: 500, fontSize: '0.875rem', marginBottom: '16px', textTransform: 'uppercase' }}>Tổng quan</h2>
           
           <div className="space-y-4" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div className="flex justify-between items-center" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -70,7 +70,7 @@ export default function WeatherInfoPage() {
               <Cloud size={64} className="text-gray-400 mr-4" style={{ color: '#9ca3af', marginRight: '16px' }} />
               <div>
                 <div className="text-4xl font-bold text-gray-800 leading-none mb-1" style={{ fontSize: '2.25rem', fontWeight: 'bold', color: '#1f2937', lineHeight: 1, marginBottom: '4px' }}>28°</div>
-                <div className="text-gray-500 font-medium" style={{ color: '#6b7280', fontWeight: 500 }}>Có mây</div>
+                <div className="text-gray-500 font-medium" style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Có mây</div>
               </div>
             </div>
             <div className="flex gap-4" style={{ display: 'flex', gap: '16px' }}>
@@ -88,22 +88,22 @@ export default function WeatherInfoPage() {
           {/* Hourly Forecast */}
           <div className="flex justify-between items-center" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div className="flex flex-col items-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <span className="text-gray-500 text-sm mb-2" style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px' }}>09h</span>
+              <span className="text-gray-500 text-sm mb-2" style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem', marginBottom: '8px' }}>09h</span>
               <Cloud size={24} className="text-gray-400 mb-2" style={{ color: '#9ca3af', marginBottom: '8px' }} />
               <span className="font-bold text-gray-800" style={{ fontWeight: 'bold', color: '#1f2937' }}>28°</span>
             </div>
             <div className="flex flex-col items-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <span className="text-gray-500 text-sm mb-2" style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px' }}>10h</span>
+              <span className="text-gray-500 text-sm mb-2" style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem', marginBottom: '8px' }}>10h</span>
               <Cloud size={24} className="text-gray-400 mb-2" style={{ color: '#9ca3af', marginBottom: '8px' }} />
               <span className="font-bold text-gray-800" style={{ fontWeight: 'bold', color: '#1f2937' }}>29°</span>
             </div>
             <div className="flex flex-col items-center bg-blue-50 px-3 py-2 rounded-xl" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#eff6ff', padding: '8px 12px', borderRadius: '12px' }}>
               <span className="text-blue-500 font-bold text-sm mb-2" style={{ color: '#3b82f6', fontWeight: 'bold', fontSize: '0.875rem', marginBottom: '8px' }}>11h</span>
               <CloudRain size={24} className="text-blue-400 mb-2" style={{ color: '#60a5fa', marginBottom: '8px' }} />
-              <span className="font-bold text-blue-600" style={{ fontWeight: 'bold', color: '#3B82F6' }}>30°</span>
+              <span className="font-bold text-blue-600" style={{ fontWeight: 'bold', color: 'var(--color-primary)' }}>30°</span>
             </div>
             <div className="flex flex-col items-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <span className="text-gray-500 text-sm mb-2" style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px' }}>12h</span>
+              <span className="text-gray-500 text-sm mb-2" style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem', marginBottom: '8px' }}>12h</span>
               <Sun size={24} className="text-orange-400 mb-2" style={{ color: '#fb923c', marginBottom: '8px' }} />
               <span className="font-bold text-gray-800" style={{ fontWeight: 'bold', color: '#1f2937' }}>31°</span>
             </div>
