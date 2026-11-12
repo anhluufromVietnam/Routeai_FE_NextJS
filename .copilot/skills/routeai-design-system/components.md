@@ -79,6 +79,55 @@ Số thứ tự trong vòng 24px (done: nền primary chữ trắng), hàng card
 <EmptyState icon={<Inbox/>} title="Chưa có đơn nào" description="..."
             action={<Button size="sm">Tạo đơn</Button>}/>
 ```
+Tùy chọn `illustration?: string` (src ảnh minh hoạ từ `public/brand/elements/`) — thay vòng icon.
+
+## App Shell & Map (kiểu app mobile thật)
+
+### `TopBar`
+```tsx
+<TopBar title="Báo cáo" onBack={fn} action={<Bell size={20}/>}/>
+```
+Back trái / tiêu đề giữa (18px bold) / action phải; sticky + nền surface + border mảnh.
+
+### `Avatar`
+```tsx
+<Avatar name="Nguyễn Văn A" size={40} src={url}/>
+```
+Tròn, nền `--color-primary-light`, fallback chữ cái đầu.
+
+### `DriverCard`
+```tsx
+<DriverCard name="Nguyễn Văn A" sub="51-B1 892.43" src={url}
+            rating={4.8} status="in_transit"
+            actions={<CallButtons/>}/>
+```
+Avatar + tên + Star rating + xe/biển + `StatusBadge`; dùng trong bottom sheet navigate, danh sách tài xế admin.
+
+### `MapCanvas`
+```tsx
+<MapCanvas stops={[{x:20,y:82,done},{x:50,y:42,current},{x:82,y:24,label:6}]}
+           progress={0.66} style={{position:'absolute', inset:0}}/>
+```
+Map minh hoạ SVG thuần: gradient + lưới mờ, route 2 lớp (mờ/primary có shadow), pins đánh số 26px (done → success, current → primary). Không cần thư viện map.
+
+### `FloatingChip`
+```tsx
+<FloatingChip label="Đang giao" value="5/25" progress={20} progressLabel="20%"
+              style={{position:'absolute', top:12, left:'50%', transform:'translateX(-50%)'}}/>
+```
+Chip nổi trên map: dot màu + progress 72px + nhãn %; nền trắng mờ blur.
+
+### `BottomSheet`
+```tsx
+<BottomSheet handle maxHeight="40dvh">…content…</BottomSheet>
+```
+Sheet đáy màn hình: tay cầm 36×4, gập/mở bằng `translateY` 200ms (không animate height); nội dung scroll riêng; `--shadow-pop`.
+
+### `FAB`
+```tsx
+<FAB onClick={recenter} ariaLabel="Recenter" style={{right:16, bottom:16}}><Locate/></FAB>
+```
+Nút nổi tròn fixed, `--shadow-pop`; chỉ dùng trên map/bottom sheet.
 
 ## Charts (SVG thuần, không thư viện ngoài)
 
