@@ -276,3 +276,15 @@ button {
 .fixed-bottom-bar {
   padding-bottom: calc(16px + env(safe-area-inset-bottom));
 }
+
+/* R:t Mobile App Transitions — page slide-in (driver app) */
+@keyframes rt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
