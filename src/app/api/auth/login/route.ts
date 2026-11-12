@@ -11,6 +11,12 @@ export async function POST(request: Request) {
       typeof email === 'string' && email.trim() ? email.trim().toLowerCase() : 'guest@r-t.io';
 
     let user = mockUsers.find(u => u.email === normalizedEmail);
+    if (user && (user as { disabled?: boolean }).disabled) {
+      return NextResponse.json(
+        { success: false, error: { code: 'ACCOUNT_DISABLED', message: 'Tài khoản đã bị vô hiệu hóa' } },
+        { status: 403 }
+      );
+    }
     if (!user) {
       user = {
         id: `mock-user-${Date.now()}`,
