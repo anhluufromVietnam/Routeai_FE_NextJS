@@ -12,7 +12,7 @@ export default function DriverHome() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Image src="/brand/icon.svg" alt="R:t" width={34} height={43} priority />
+          <Image src="/brand/03_logo_monogram.png" alt="R:t" width={34} height={28} priority />
           <div>
             <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: '0.25rem' }}>Xin chào,</p>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{userName}</h2>

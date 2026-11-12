@@ -36,10 +36,10 @@ export default function RegisterPage() {
       <div className={styles.card}>
         <div className={styles.logoWrap}>
           <Image
-            src="/brand/logo.svg"
+            src="/brand/01_logo_primary.png"
             alt="R:t — Smarter Routes. Faster Deliveries."
             width={148}
-            height={89}
+            height={72}
             priority
             className={styles.logo}
           />

@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-bg-app);
-  background-image: radial-gradient(circle, rgba(47, 128, 255, 0.08) 2px, transparent 2.5px);
+  background-image: radial-gradient(circle, rgba(59, 130, 246, 0.08) 2px, transparent 2.5px);
   background-size: 28px 28px;
   font-family: var(--font-family-base);
   padding: 1rem;
