@@ -1,32 +1,47 @@
 :root {
-  /* R:t Brand Colors — Deep Navy / Route Blue / Clean Light */
-  --color-navy: #0B1F3B;
-  --color-navy-hover: #142E52;
-  --color-primary: #2F80FF;
-  --color-primary-hover: #1A66E8;
-  --color-primary-light: #E8F0FE;
-  
-  --color-secondary: #0B1F3B;
-  
+  /* R:t Brand Colors — official spec (product brief §8) */
+  --color-navy: #0F1B38;
+  --color-navy-hover: #1A2A52;
+  --color-primary: #3B82F6;
+  --color-primary-hover: #2563EB;
+  --color-primary-light: #EFF6FF;
+  --color-sky: #60A5FA;
+
+  --color-secondary: #0F1B38;
+
   /* Background Colors */
-  --color-bg-app: #F4F7FC;
+  --color-bg-app: #F8FAFC;
   --color-bg-surface: #FFFFFF;
-  --color-bg-sidebar: #0B1F3B;
-  
+  --color-bg-sidebar: #0F1B38;
+
   /* Text Colors */
-  --color-text-main: #111827;
-  --color-text-muted: #6b7280;
+  --color-text-main: #0F1B38;
+  --color-text-muted: #64748B;
   --color-text-sidebar: #cbd5e1;
   --color-text-sidebar-active: #ffffff;
-  
+
   /* Status Colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-  --color-info: #2F80FF;
+  --color-success: #16B86A;
+  --color-success-light: #E7F8F0;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF6E7;
+  --color-danger: #EF4444;
+  --color-danger-light: #FDECEC;
+  --color-info: #3B82F6;
 
   /* Borders */
-  --color-border: #e5e7eb;
+  --color-border: #CBD5E1;
+  --color-border-light: #E2E8F0;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-card: 0 1px 2px rgba(15, 27, 56, 0.05), 0 1px 3px rgba(15, 27, 56, 0.06);
+  --shadow-pop: 0 8px 24px rgba(15, 27, 56, 0.12);
 
   /* Typography */
   --font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -223,7 +238,7 @@ button {
 
 /* R:t Brand Pattern — GPS Route Node (dotted route line) */
 .brand-pattern {
-  background-image: radial-gradient(circle, rgba(47, 128, 255, 0.18) 2px, transparent 2.5px);
+  background-image: radial-gradient(circle, rgba(59, 130, 246, 0.18) 2px, transparent 2.5px);
   background-size: 28px 28px;
 }
 
@@ -234,5 +249,5 @@ button {
 
 /* R:t Brand Gradient — Deep Navy to Route Blue */
 .brand-gradient {
-  background: linear-gradient(135deg, #0B1F3B 0%, #2F80FF 100%);
+  background: linear-gradient(135deg, #0F1B38 0%, #3B82F6 100%);
 }
