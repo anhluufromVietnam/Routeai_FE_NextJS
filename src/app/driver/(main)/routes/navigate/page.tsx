@@ -2,7 +2,6 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowUpRight, Settings, Navigation, CloudRain, ShieldAlert, PackageCheck } from 'lucide-react';
-import Link from 'next/link';
 
 export default function NavigatePage() {
   const router = useRouter();

@@ -1,20 +1,16 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, X, Image as ImageIcon, Zap, ZapOff } from 'lucide-react';
+import { ChevronLeft, X, Image as ImageIcon } from 'lucide-react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 
 export default function DriverScanCamera() {
   const router = useRouter();
-  const [isFlashOn, setIsFlashOn] = useState(false);
+  const [isFlashOn] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleScanSuccess = (result: string) => {
     router.push('/driver/scan/result?code=' + encodeURIComponent(result));
-  };
-
-  const toggleFlash = () => {
-    setIsFlashOn(!isFlashOn);
   };
 
   return (
