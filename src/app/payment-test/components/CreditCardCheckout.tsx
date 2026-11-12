@@ -70,7 +70,7 @@ export function CreditCardCheckout({
       }}
       style={{
         background: '#ffffff',
-        border: '1.5px solid #e5e7eb',
+        border: '1.5px solid var(--color-border-light)',
         borderRadius: 12,
         padding: '1.5rem',
         marginBottom: '1.5rem',
@@ -82,12 +82,12 @@ export function CreditCardCheckout({
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '1rem',
-          borderBottom: '1px solid #e5e7eb',
+          borderBottom: '1px solid var(--color-border-light)',
           paddingBottom: '0.75rem',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, fontSize: '1rem', color: '#0B1F3B' }}>
-          <CreditCard size={20} color="#2F80FF" /> Card Payment (Visa / Mastercard / Amex)
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, fontSize: '1rem', color: 'var(--color-text-main)' }}>
+          <CreditCard size={20} color="var(--color-primary)" /> Card Payment (Visa / Mastercard / Amex)
         </div>
         <div
           style={{
@@ -95,8 +95,8 @@ export function CreditCardCheckout({
             alignItems: 'center',
             gap: 4,
             fontSize: '0.75rem',
-            color: '#10b981',
-            background: '#dcfce7',
+            color: 'var(--color-success)',
+            background: 'var(--color-success-light)',
             padding: '2px 8px',
             borderRadius: 6,
             fontWeight: 600,
@@ -126,7 +126,7 @@ export function CreditCardCheckout({
 
       {/* Card Number */}
       <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>
+        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
           Card Number
         </label>
         <div style={{ position: 'relative' }}>
@@ -144,7 +144,7 @@ export function CreditCardCheckout({
               width: '100%',
               padding: '10px 14px 10px 40px',
               borderRadius: 8,
-              border: '1px solid #e5e7eb',
+              border: '1px solid var(--color-border-light)',
               fontSize: '0.95rem',
               boxSizing: 'border-box',
             }}
@@ -156,7 +156,7 @@ export function CreditCardCheckout({
       {/* Expiry & CVC */}
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
         <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>
+          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
             Expiry Date (MM/YY)
           </label>
           <input
@@ -173,7 +173,7 @@ export function CreditCardCheckout({
               width: '100%',
               padding: '10px 14px',
               borderRadius: 8,
-              border: '1px solid #e5e7eb',
+              border: '1px solid var(--color-border-light)',
               fontSize: '0.95rem',
               boxSizing: 'border-box',
             }}
@@ -181,7 +181,7 @@ export function CreditCardCheckout({
         </div>
 
         <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>
+          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
             Security Code (CVC)
           </label>
           <input
@@ -198,7 +198,7 @@ export function CreditCardCheckout({
               width: '100%',
               padding: '10px 14px',
               borderRadius: 8,
-              border: '1px solid #e5e7eb',
+              border: '1px solid var(--color-border-light)',
               fontSize: '0.95rem',
               boxSizing: 'border-box',
             }}
@@ -208,7 +208,7 @@ export function CreditCardCheckout({
 
       {/* Cardholder Name */}
       <div style={{ marginBottom: '1.25rem' }}>
-        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>
+        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
           Cardholder Name
         </label>
         <input
@@ -224,7 +224,7 @@ export function CreditCardCheckout({
             width: '100%',
             padding: '10px 14px',
             borderRadius: 8,
-            border: '1px solid #e5e7eb',
+            border: '1px solid var(--color-border-light)',
             fontSize: '0.95rem',
             boxSizing: 'border-box',
           }}
