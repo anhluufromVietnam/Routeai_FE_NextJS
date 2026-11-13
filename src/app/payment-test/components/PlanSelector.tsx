@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import styles from '../page.module.css';
-import { Check, Zap } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { SegmentedControl } from '@/components/ui';
 import { SUBSCRIPTION_PLANS, SubscriptionPlan } from '@/services/airwallex/plans';
 
 interface PlanSelectorProps {
@@ -21,98 +21,102 @@ export function PlanSelector({
   const discountMultiplier = billingCycle === 'yearly' ? 0.85 : 1.0;
 
   return (
-    <>
-      {/* Toolbar Billing Cycle */}
-      <div className={styles.toolbar}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <span style={{ fontSize: '1.25rem' }}>🇨🇦</span>
-          <span style={{ fontWeight: 800, color: 'var(--color-text-main)', fontSize: '1rem' }}>
-            Canadian Fleet Billing (CAD)
-          </span>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <SegmentedControl
+        options={[
+          { value: 'monthly', label: 'Hàng tháng' },
+          { value: 'yearly', label: 'Hàng năm −15%' },
+        ]}
+        value={billingCycle}
+        onChange={(v) => onBillingCycleChange(v as 'monthly' | 'yearly')}
+        style={{ alignSelf: 'stretch' }}
+      />
 
-        <div className={styles.billingToggle}>
-          <button
-            type="button"
-            className={`${styles.toggleBtn} ${billingCycle === 'monthly' ? styles.toggleBtnActive : ''}`}
-            onClick={() => onBillingCycleChange('monthly')}
+      {SUBSCRIPTION_PLANS.map((plan: SubscriptionPlan) => {
+        const isSelected = selectedPlanId === plan.id;
+        const perMonth = (plan.monthlyCad * discountMultiplier).toFixed(2);
+        const total = (
+          plan.monthlyCad * discountMultiplier * (billingCycle === 'yearly' ? 12 : 1)
+        ).toFixed(2);
+
+        return (
+          <div
+            key={plan.id}
+            onClick={() => onSelectPlan(plan.id)}
+            style={{
+              background: isSelected ? 'var(--color-primary-light)' : 'var(--color-bg-surface)',
+              border: `1px solid ${isSelected ? 'var(--color-primary)' : 'var(--color-border-light)'}`,
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-card)',
+              padding: 16,
+              cursor: 'pointer',
+              transition: 'border-color 200ms ease-out, background 200ms ease-out',
+            }}
           >
-            Monthly Billing
-          </button>
-          <button
-            type="button"
-            className={`${styles.toggleBtn} ${billingCycle === 'yearly' ? styles.toggleBtnActive : ''}`}
-            onClick={() => onBillingCycleChange('yearly')}
-          >
-            Annual Billing <span style={{ color: 'var(--color-success)', fontSize: '0.75rem' }}>(Save 15%)</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Title */}
-      <div style={{ marginBottom: '1.5rem', fontWeight: 800, fontSize: '1.2rem', color: 'var(--color-text-main)' }}>
-        Step 1: Choose Your Subscription Plan
-      </div>
-
-      {/* Plans Grid */}
-      <div className={styles.plansGrid}>
-        {SUBSCRIPTION_PLANS.map((plan: SubscriptionPlan) => {
-          const isSelected = selectedPlanId === plan.id;
-          const planMonthlyDisplay = Number((plan.monthlyCad * discountMultiplier).toFixed(2)).toFixed(2);
-          const totalPlanAmount = Number(
-            (plan.monthlyCad * discountMultiplier * (billingCycle === 'yearly' ? 12 : 1)).toFixed(2)
-          );
-
-          return (
-            <div
-              key={plan.id}
-              className={`${styles.planCard} ${plan.recommended ? styles.planCardRecommended : ''}`}
-              onClick={() => onSelectPlan(plan.id)}
-            >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+              <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--color-navy)' }}>{plan.name}</div>
               {plan.recommended && (
-                <div className={styles.recommendedRibbon}>
-                  Most Popular in Canada
-                </div>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: 'var(--color-primary)',
+                    background: 'var(--color-bg-surface)',
+                    border: '1px solid var(--color-primary)',
+                    borderRadius: 'var(--radius-pill)',
+                    padding: '2px 8px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Phổ biến nhất
+                </span>
               )}
+              {isSelected && !plan.recommended && (
+                <Check size={20} color="var(--color-primary)" aria-label="Đã chọn" />
+              )}
+            </div>
 
-              <div className={styles.planName}>{plan.name}</div>
-              <div className={styles.planDesc}>{plan.description}</div>
-
-              <div className={styles.priceWrapper}>
-                <span className={styles.priceAmount}>C${planMonthlyDisplay}</span>
-                <span className={styles.pricePeriod}>/ month</span>
-              </div>
-
-              <ul className={styles.featureList}>
-                {plan.features.map((feature, idx) => (
-                  <li key={idx} className={styles.featureItem}>
-                    <Check size={18} className={styles.featureIcon} />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                type="button"
-                className={`${styles.selectPlanBtn} ${isSelected ? styles.selectPlanBtnSelected : ''}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSelectPlan(plan.id);
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 6 }}>
+              <span
+                style={{
+                  fontSize: 28,
+                  fontWeight: 700,
+                  color: 'var(--color-navy)',
+                  fontVariantNumeric: 'tabular-nums',
                 }}
               >
-                {isSelected ? (
-                  <>
-                    <Zap size={18} /> Selected Plan (C${totalPlanAmount})
-                  </>
-                ) : (
-                  'Select Plan'
-                )}
-              </button>
+                C${perMonth}
+              </span>
+              <span style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>/ tháng</span>
+              {billingCycle === 'yearly' && (
+                <span style={{ fontSize: 13, color: 'var(--color-text-muted)', marginLeft: 'auto' }}>
+                  C${total} / năm
+                </span>
+              )}
             </div>
-          );
-        })}
-      </div>
-    </>
+
+            <div style={{ fontSize: 13, color: 'var(--color-text-muted)', marginTop: 4 }}>{plan.description}</div>
+
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 6,
+                marginTop: 12,
+                paddingTop: 12,
+                borderTop: '1px solid var(--color-border-light)',
+              }}
+            >
+              {plan.features.map((feature, idx) => (
+                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Check size={14} color="var(--color-primary)" style={{ flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, color: 'var(--color-text-main)', lineHeight: 1.4 }}>{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
-
