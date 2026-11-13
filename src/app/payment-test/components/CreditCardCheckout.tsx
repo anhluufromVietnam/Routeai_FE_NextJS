@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import styles from '../page.module.css';
-import { CreditCard, Lock, RefreshCw } from 'lucide-react';
+import { Lock, CreditCard } from 'lucide-react';
+import { Button, Input, StatusBadge } from '@/components/ui';
 
 interface CreditCardCheckoutProps {
   totalAmountCad: number;
@@ -10,11 +10,7 @@ interface CreditCardCheckoutProps {
   onPaymentSuccess: () => void;
 }
 
-export function CreditCardCheckout({
-  totalAmountCad,
-  planName,
-  onPaymentSuccess,
-}: CreditCardCheckoutProps) {
+export function CreditCardCheckout({ totalAmountCad, planName, onPaymentSuccess }: CreditCardCheckoutProps) {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
@@ -22,10 +18,7 @@ export function CreditCardCheckout({
   const [cardProcessing, setCardProcessing] = useState(false);
   const [cardError, setCardError] = useState('');
 
-  const handlePayCard = async (e?: React.SyntheticEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
+  const handlePayCard = async () => {
     setCardProcessing(true);
     setCardError('');
 
@@ -51,70 +44,46 @@ export function CreditCardCheckout({
         onPaymentSuccess();
       } else {
         setCardError(
-          `[Airwallex Live API Response]: ${data.airwallexMessage}\n\nNotice: ${data.explanation}`
+          `[Airwallex Live API Response]: ${data.airwallexMessage ?? data.error ?? 'Unknown error'}\n\nNotice: ${data.explanation ?? ''}`
         );
       }
     } catch {
       setCardProcessing(false);
-      setCardError('Could not connect to Airwallex payment gateway.');
+      setCardError('Không kết nối được cổng thanh toán Airwallex.');
     }
   };
 
   return (
-    <div
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' && !cardProcessing) {
-          e.preventDefault();
-          handlePayCard(e);
-        }
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!cardProcessing) handlePayCard();
       }}
-      style={{
-        background: 'var(--color-bg-surface)',
-        border: '1.5px solid var(--color-border-light)',
-        borderRadius: 12,
-        padding: '1.5rem',
-        marginBottom: '1.5rem',
-      }}
+      style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
     >
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '1rem',
-          borderBottom: '1px solid var(--color-border-light)',
-          paddingBottom: '0.75rem',
+          justifyContent: 'space-between',
+          gap: 8,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, fontSize: '1rem', color: 'var(--color-text-main)' }}>
-          <CreditCard size={20} color="var(--color-primary)" /> Card Payment (Visa / Mastercard / Amex)
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, color: 'var(--color-navy)' }}>
+          <CreditCard size={18} color="var(--color-primary)" /> Thanh toán bằng thẻ
         </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            fontSize: '0.75rem',
-            color: 'var(--color-success)',
-            background: 'var(--color-success-light)',
-            padding: '2px 8px',
-            borderRadius: 6,
-            fontWeight: 600,
-          }}
-        >
-          <Lock size={12} /> Airwallex Live Gateway
-        </div>
+        <StatusBadge status="success" label="Airwallex Live" size="sm" />
       </div>
 
       {cardError && (
         <div
+          role="alert"
           style={{
             background: 'var(--color-danger-light)',
-            border: '1px solid rgba(239, 68, 68, 0.4)',
-            borderRadius: 8,
+            border: '1px solid var(--color-danger)',
+            borderRadius: 'var(--radius-md)',
             padding: '12px 14px',
-            marginBottom: '1.25rem',
-            fontSize: '0.82rem',
+            fontSize: 13,
             color: 'var(--color-danger)',
             whiteSpace: 'pre-line',
             lineHeight: 1.5,
@@ -124,131 +93,64 @@ export function CreditCardCheckout({
         </div>
       )}
 
-      {/* Card Number */}
-      <div style={{ marginBottom: '1rem' }}>
-        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
-          Card Number
-        </label>
-        <div style={{ position: 'relative' }}>
-          <input
-            type="text"
-            name="custom-card-number-field"
-            autoComplete="new-password"
-            data-form-type="other"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-            placeholder="4111 2222 3333 4444"
-            maxLength={19}
-            required
-            style={{
-              width: '100%',
-              padding: '10px 14px 10px 40px',
-              borderRadius: 8,
-              border: '1px solid var(--color-border-light)',
-              fontSize: '0.95rem',
-              boxSizing: 'border-box',
-            }}
-          />
-          <CreditCard size={18} color="var(--color-text-muted)" style={{ position: 'absolute', left: 12, top: 12 }} />
-        </div>
-      </div>
+      <Input
+        label="Số thẻ"
+        type="text"
+        name="custom-card-number-field"
+        autoComplete="new-password"
+        data-form-type="other"
+        value={cardNumber}
+        onChange={(e) => setCardNumber(e.target.value)}
+        placeholder="4111 2222 3333 4444"
+        maxLength={19}
+        leftIcon={<CreditCard size={16} />}
+        required
+      />
 
-      {/* Expiry & CVC */}
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-        <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
-            Expiry Date (MM/YY)
-          </label>
-          <input
-            type="text"
-            name="custom-card-expiry-field"
-            autoComplete="new-password"
-            data-form-type="other"
-            value={expiry}
-            onChange={(e) => setExpiry(e.target.value)}
-            placeholder="MM/YY"
-            maxLength={5}
-            required
-            style={{
-              width: '100%',
-              padding: '10px 14px',
-              borderRadius: 8,
-              border: '1px solid var(--color-border-light)',
-              fontSize: '0.95rem',
-              boxSizing: 'border-box',
-            }}
-          />
-        </div>
-
-        <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
-            Security Code (CVC)
-          </label>
-          <input
-            type="password"
-            name="custom-card-cvc-field"
-            autoComplete="new-password"
-            data-form-type="other"
-            maxLength={4}
-            value={cvc}
-            onChange={(e) => setCvc(e.target.value)}
-            placeholder="123"
-            required
-            style={{
-              width: '100%',
-              padding: '10px 14px',
-              borderRadius: 8,
-              border: '1px solid var(--color-border-light)',
-              fontSize: '0.95rem',
-              boxSizing: 'border-box',
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Cardholder Name */}
-      <div style={{ marginBottom: '1.25rem' }}>
-        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 6 }}>
-          Cardholder Name
-        </label>
-        <input
+      <div style={{ display: 'flex', gap: 12 }}>
+        <Input
+          label="Ngày hết hạn (MM/YY)"
           type="text"
-          name="custom-card-holder-field"
+          name="custom-card-expiry-field"
           autoComplete="new-password"
           data-form-type="other"
-          value={cardHolder}
-          onChange={(e) => setCardHolder(e.target.value)}
-          placeholder="e.g. JOHN DOE"
+          value={expiry}
+          onChange={(e) => setExpiry(e.target.value)}
+          placeholder="MM/YY"
+          maxLength={5}
+          style={{ flex: 1 }}
           required
-          style={{
-            width: '100%',
-            padding: '10px 14px',
-            borderRadius: 8,
-            border: '1px solid var(--color-border-light)',
-            fontSize: '0.95rem',
-            boxSizing: 'border-box',
-          }}
+        />
+        <Input
+          label="Mã CVC"
+          type="password"
+          name="custom-card-cvc-field"
+          autoComplete="new-password"
+          data-form-type="other"
+          value={cvc}
+          onChange={(e) => setCvc(e.target.value)}
+          placeholder="123"
+          maxLength={4}
+          style={{ flex: 1 }}
+          required
         />
       </div>
 
-      <button
-        type="button"
-        onClick={() => handlePayCard()}
-        disabled={cardProcessing}
-        className={styles.primaryButton}
-        style={{ padding: '12px', fontSize: '1rem' }}
-      >
-        {cardProcessing ? (
-          <>
-            <RefreshCw size={18} className="animate-spin" /> Authorizing Payment...
-          </>
-        ) : (
-          <>
-            <Lock size={18} /> Pay C${totalAmountCad} CAD with Card
-          </>
-        )}
-      </button>
-    </div>
+      <Input
+        label="Tên chủ thẻ"
+        type="text"
+        name="custom-card-holder-field"
+        autoComplete="new-password"
+        data-form-type="other"
+        value={cardHolder}
+        onChange={(e) => setCardHolder(e.target.value)}
+        placeholder="VD: JOHN DOE"
+        required
+      />
+
+      <Button type="submit" variant="primary" size="lg" fullWidth loading={cardProcessing} icon={<Lock size={18} />}>
+        Thanh toán C${totalAmountCad.toFixed(2)} CAD
+      </Button>
+    </form>
   );
 }
-
