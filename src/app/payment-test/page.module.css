@@ -22,14 +22,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: #ecfdf5;
-  color: #065f46;
+  background-color: var(--color-success-light);
+  color: var(--color-success);
   font-size: 0.8rem;
   font-weight: 700;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   margin-bottom: 1rem;
-  border: 1px solid #a7f3d0;
+  border: 1px solid rgba(22, 184, 106, 0.35);
 }
 
 .title {
@@ -57,7 +57,7 @@
 }
 
 .planCard {
-  background-color: #ffffff;
+  background-color: var(--color-bg-surface);
   border-radius: 16px;
   padding: 2rem;
   border: 1px solid var(--color-border-light);
@@ -240,7 +240,7 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: var(--color-text-muted);
 }
 
 .filterPills {
@@ -292,7 +292,7 @@
 }
 
 .bankCard:hover {
-  border-color: #9ca3af;
+  border-color: var(--color-border);
   transform: translateY(-2px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
@@ -337,7 +337,7 @@
 
 /* Copy Voucher */
 .voucherBox {
-  background: #ffffff;
+  background: var(--color-bg-surface);
   border: 2px solid var(--color-primary);
   border-radius: 14px;
   overflow: hidden;
@@ -346,7 +346,7 @@
 }
 
 .voucherHeader {
-  background: #142E52;
+  background: var(--color-navy);
   color: white;
   padding: 1.25rem 1.5rem;
   display: flex;
@@ -365,7 +365,7 @@
 
 .voucherRowHighlighted {
   background: var(--color-primary-light);
-  border-bottom: 1px solid #BFDBFE;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.25);
 }
 
 .voucherLabel {

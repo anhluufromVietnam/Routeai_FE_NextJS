@@ -128,7 +128,7 @@ export function BankSelector({
           style={{
             textAlign: 'center',
             padding: '1.5rem',
-            background: '#F4F7FC',
+            background: 'var(--color-bg-app)',
             borderRadius: 10,
             border: '1px dashed var(--color-border-light)',
             marginBottom: '1.5rem',

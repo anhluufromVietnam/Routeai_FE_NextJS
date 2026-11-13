@@ -71,8 +71,8 @@ function CanadaSubscriptionAppFlow() {
 
         {/* BƯỚC 2: Chọn ngân hàng & Phương thức thanh toán */}
         <div className={styles.checkoutPanel}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, fontSize: '1.25rem', color: '#0B1F3B', marginBottom: '0.4rem' }}>
-            <Building2 color="#2F80FF" size={26} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 800, fontSize: '1.25rem', color: 'var(--color-navy)', marginBottom: '0.4rem' }}>
+            <Building2 color="var(--color-primary)" size={26} />
             Step 2: Payment Method & Canadian Bank
           </div>
 
@@ -117,7 +117,7 @@ function CanadaSubscriptionAppFlow() {
 
           {/* Quay lại đăng nhập */}
           <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-            <Link href="/login" style={{ color: '#6b7280', fontSize: '0.88rem', textDecoration: 'none' }}>
+            <Link href="/login" style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem', textDecoration: 'none' }}>
               ← Return to R:t Sign In
             </Link>
           </div>
