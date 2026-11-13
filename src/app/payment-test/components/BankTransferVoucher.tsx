@@ -85,7 +85,7 @@ export function BankTransferVoucher({
       <div className={styles.voucherBox}>
         <div className={styles.voucherHeader}>
           <div>
-            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#B4D2FE', fontWeight: 700 }}>
+            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-sky)', fontWeight: 700 }}>
               Copy & Paste to your {selectedBank.name} App
             </div>
             <div style={{ fontSize: '1.2rem', fontWeight: 800 }}>
@@ -93,7 +93,7 @@ export function BankTransferVoucher({
             </div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '0.75rem', color: '#B4D2FE' }}>Amount:</div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--color-sky)' }}>Amount:</div>
             <div style={{ fontSize: '1.25rem', fontWeight: 800 }}>C${totalAmountCad} CAD</div>
           </div>
         </div>
@@ -132,11 +132,11 @@ export function BankTransferVoucher({
             </div>
 
             <div className={`${styles.voucherRow} ${styles.voucherRowHighlighted}`}>
-              <span className={styles.voucherLabel} style={{ color: '#142E52', fontWeight: 700 }}>
+              <span className={styles.voucherLabel} style={{ color: 'var(--color-navy)', fontWeight: 700 }}>
                 Payment Reference / Message:
               </span>
               <div className={styles.voucherValue}>
-                <span style={{ fontSize: '1.2rem', color: '#142E52', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '1.2rem', color: 'var(--color-navy)', letterSpacing: '0.05em' }}>
                   {referenceCode}
                 </span>
                 <button
@@ -204,11 +204,11 @@ export function BankTransferVoucher({
             </div>
 
             <div className={`${styles.voucherRow} ${styles.voucherRowHighlighted}`}>
-              <span className={styles.voucherLabel} style={{ color: '#142E52', fontWeight: 700 }}>
+              <span className={styles.voucherLabel} style={{ color: 'var(--color-navy)', fontWeight: 700 }}>
                 Transfer Memo / Reference:
               </span>
               <div className={styles.voucherValue}>
-                <span style={{ fontSize: '1.2rem', color: '#142E52' }}>{referenceCode}</span>
+                <span style={{ fontSize: '1.2rem', color: 'var(--color-navy)' }}>{referenceCode}</span>
                 <button
                   type="button"
                   className={styles.copyBtn}

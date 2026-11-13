@@ -69,14 +69,7 @@ const RECENT_ORDERS = [
 export default function AdminOverviewPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      {/* Page header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-        <div>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: 'var(--color-text-main)', margin: 0 }}>Tổng quan vận hành</h1>
-          <p style={{ fontSize: 13, color: 'var(--color-text-muted)', margin: '4px 0 0' }}>
-            Theo dõi hiệu quả giao hàng theo thời gian thực
-          </p>
-        </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <SegmentedControl
           options={[
             { value: 'today', label: 'Hôm nay' },

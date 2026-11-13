@@ -69,7 +69,7 @@ export function CreditCardCheckout({
         }
       }}
       style={{
-        background: '#ffffff',
+        background: 'var(--color-bg-surface)',
         border: '1.5px solid var(--color-border-light)',
         borderRadius: 12,
         padding: '1.5rem',
@@ -109,13 +109,13 @@ export function CreditCardCheckout({
       {cardError && (
         <div
           style={{
-            background: '#fee2e2',
-            border: '1px solid #fca5a5',
+            background: 'var(--color-danger-light)',
+            border: '1px solid rgba(239, 68, 68, 0.4)',
             borderRadius: 8,
             padding: '12px 14px',
             marginBottom: '1.25rem',
             fontSize: '0.82rem',
-            color: '#991b1b',
+            color: 'var(--color-danger)',
             whiteSpace: 'pre-line',
             lineHeight: 1.5,
           }}
@@ -149,7 +149,7 @@ export function CreditCardCheckout({
               boxSizing: 'border-box',
             }}
           />
-          <CreditCard size={18} color="#9ca3af" style={{ position: 'absolute', left: 12, top: 12 }} />
+          <CreditCard size={18} color="var(--color-text-muted)" style={{ position: 'absolute', left: 12, top: 12 }} />
         </div>
       </div>
 

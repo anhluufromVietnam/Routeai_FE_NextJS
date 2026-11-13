@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { adminService, SystemConfig } from '@/services/admin.service';
+import { Button, Card, Input, SegmentedControl, SectionTitle, Toggle } from '@/components/ui';
 import styles from './layout.module.css';
 
 const OCR_OPTIONS = ['tesseract', 'google-vision', 'aws-textract', 'azure-vision'];
@@ -57,106 +58,102 @@ export default function AdminConfigPage() {
 
   if (!config) {
     return (
-      <div>
-        <h1 className={styles.pageTitle}>Cấu hình hệ thống</h1>
+      <div className={styles.stack}>
         {error ? <div className={`${styles.alert} ${styles.alertError}`}>{error}</div> : <p className={styles.pageSub}>Đang tải…</p>}
       </div>
     );
   }
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Cấu hình hệ thống</h1>
+    <div className={styles.stack}>
       <p className={styles.pageSub}>Chọn model OCR / voice, URL bản đồ, tính năng. API key thật nằm trong biến môi trường.</p>
 
       {error && <div className={`${styles.alert} ${styles.alertError}`}>{error}</div>}
       {notice && <div className={`${styles.alert} ${styles.alertOk}`}>{notice}</div>}
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>OCR — nhận dạng ký tự</div>
-        <div className={styles.grid}>
+      <Card padding={20}>
+        <SectionTitle title="OCR — nhận dạng ký tự" style={{ marginBottom: 16 }} />
+        <div className={styles.section}>
           <div className={styles.field}>
-            <label htmlFor="ocr-provider">Provider</label>
-            <select id="ocr-provider" value={config.ocr.provider} onChange={(e) => setSection('ocr', 'provider', e.target.value)}>
-              {OCR_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
-            </select>
+            <span className={styles.fieldLabel}>Provider</span>
+            <SegmentedControl
+              options={OCR_OPTIONS.map((o) => ({ value: o, label: o }))}
+              value={config.ocr.provider}
+              onChange={(value) => setSection('ocr', 'provider', value)}
+            />
           </div>
-          <div className={styles.field}>
-            <label htmlFor="ocr-model">Model</label>
-            <input id="ocr-model" value={config.ocr.model} onChange={(e) => setSection('ocr', 'model', e.target.value)} />
+          <div className={styles.grid}>
+            <Input label="Model" value={config.ocr.model} onChange={(e) => setSection('ocr', 'model', e.target.value)} />
+            <Input label="Endpoint (tuỳ chọn)" placeholder="https://…" value={config.ocr.endpoint} onChange={(e) => setSection('ocr', 'endpoint', e.target.value)} />
           </div>
+          <div className={styles.hint}>API key: {config.ocr.apiKeyConfigured ? 'đã cấu hình (env OCR_API_KEY)' : config.tokens.ocrApiKeyHint}</div>
         </div>
-        <div className={styles.field}>
-          <label htmlFor="ocr-endpoint">Endpoint (tuỳ chọn)</label>
-          <input id="ocr-endpoint" value={config.ocr.endpoint} onChange={(e) => setSection('ocr', 'endpoint', e.target.value)} placeholder="https://…" />
-        </div>
-        <div className={styles.hint}>API key: {config.ocr.apiKeyConfigured ? 'đã cấu hình (env OCR_API_KEY)' : config.tokens.ocrApiKeyHint}</div>
-      </div>
+      </Card>
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>Voice — giọng nói</div>
-        <div className={styles.grid}>
+      <Card padding={20}>
+        <SectionTitle title="Voice — giọng nói" style={{ marginBottom: 16 }} />
+        <div className={styles.section}>
           <div className={styles.field}>
-            <label htmlFor="voice-provider">Provider</label>
-            <select id="voice-provider" value={config.voice.provider} onChange={(e) => setSection('voice', 'provider', e.target.value)}>
-              {VOICE_OPTIONS.map((o) => <option key={o} value={o}>{o}</option>)}
-            </select>
+            <span className={styles.fieldLabel}>Provider</span>
+            <SegmentedControl
+              options={VOICE_OPTIONS.map((o) => ({ value: o, label: o }))}
+              value={config.voice.provider}
+              onChange={(value) => setSection('voice', 'provider', value)}
+            />
           </div>
-          <div className={styles.field}>
-            <label htmlFor="voice-model">Model</label>
-            <input id="voice-model" value={config.voice.model} onChange={(e) => setSection('voice', 'model', e.target.value)} />
+          <div className={styles.grid}>
+            <Input label="Model" value={config.voice.model} onChange={(e) => setSection('voice', 'model', e.target.value)} />
+            <Input label="Ngôn ngữ" placeholder="vi-VN" value={config.voice.language} onChange={(e) => setSection('voice', 'language', e.target.value)} />
           </div>
+          <Input label="Endpoint (tuỳ chọn)" placeholder="https://…" value={config.voice.endpoint} onChange={(e) => setSection('voice', 'endpoint', e.target.value)} />
+          <div className={styles.hint}>API key: {config.voice.apiKeyConfigured ? 'đã cấu hình (env VOICE_API_KEY)' : config.tokens.voiceApiKeyHint}</div>
         </div>
-        <div className={styles.grid}>
-          <div className={styles.field}>
-            <label htmlFor="voice-lang">Ngôn ngữ</label>
-            <input id="voice-lang" value={config.voice.language} onChange={(e) => setSection('voice', 'language', e.target.value)} placeholder="vi-VN" />
-          </div>
-          <div className={styles.field}>
-            <label htmlFor="voice-endpoint">Endpoint (tuỳ chọn)</label>
-            <input id="voice-endpoint" value={config.voice.endpoint} onChange={(e) => setSection('voice', 'endpoint', e.target.value)} placeholder="https://…" />
-          </div>
-        </div>
-        <div className={styles.hint}>API key: {config.voice.apiKeyConfigured ? 'đã cấu hình (env VOICE_API_KEY)' : config.tokens.voiceApiKeyHint}</div>
-      </div>
+      </Card>
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>Bản đồ</div>
-        <div className={styles.field}>
-          <label htmlFor="map-url">Map URL (tile template)</label>
-          <input id="map-url" value={config.maps.mapUrl} onChange={(e) => setSection('maps', 'mapUrl', e.target.value)} />
+      <Card padding={20}>
+        <SectionTitle title="Bản đồ" style={{ marginBottom: 16 }} />
+        <div className={styles.section}>
+          <Input label="Map URL (tile template)" value={config.maps.mapUrl} onChange={(e) => setSection('maps', 'mapUrl', e.target.value)} />
+          <Input label="Tile provider" value={config.maps.tileProvider} onChange={(e) => setSection('maps', 'tileProvider', e.target.value)} />
+          <div className={styles.hint}>API key: {config.maps.apiKeyConfigured ? 'đã cấu hình (env MAP_API_KEY)' : config.tokens.mapApiKeyHint}</div>
         </div>
-        <div className={styles.field}>
-          <label htmlFor="tile-provider">Tile provider</label>
-          <input id="tile-provider" value={config.maps.tileProvider} onChange={(e) => setSection('maps', 'tileProvider', e.target.value)} />
+      </Card>
+
+      <Card padding={20}>
+        <SectionTitle title="Tính năng" style={{ marginBottom: 16 }} />
+        <div className={styles.section}>
+          <div className={styles.toggleRow}>
+            <Toggle checked={config.features.qrScanEnabled} onChange={(checked) => setSection('features', 'qrScanEnabled', checked)} />
+            <label className={styles.toggleLabel}>
+              <input type="checkbox" checked={config.features.qrScanEnabled} onChange={(e) => setSection('features', 'qrScanEnabled', e.target.checked)} />
+              Bật quét QR
+            </label>
+          </div>
+          <div className={styles.toggleRow}>
+            <Toggle checked={config.features.voiceInputEnabled} onChange={(checked) => setSection('features', 'voiceInputEnabled', checked)} />
+            <label className={styles.toggleLabel}>
+              <input type="checkbox" checked={config.features.voiceInputEnabled} onChange={(e) => setSection('features', 'voiceInputEnabled', e.target.checked)} />
+              Bật nhập liệu giọng nói
+            </label>
+          </div>
+          <div className={styles.toggleRow}>
+            <Toggle checked={config.features.offlineMode} onChange={(checked) => setSection('features', 'offlineMode', checked)} />
+            <label className={styles.toggleLabel}>
+              <input type="checkbox" checked={config.features.offlineMode} onChange={(e) => setSection('features', 'offlineMode', e.target.checked)} />
+              Chế độ offline
+            </label>
+          </div>
         </div>
-        <div className={styles.hint}>API key: {config.maps.apiKeyConfigured ? 'đã cấu hình (env MAP_API_KEY)' : config.tokens.mapApiKeyHint}</div>
-      </div>
+      </Card>
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>Tính năng</div>
-        <label className={styles.checkRow}>
-          <input type="checkbox" checked={config.features.qrScanEnabled} onChange={(e) => setSection('features', 'qrScanEnabled', e.target.checked)} />
-          Bật quét QR
-        </label>
-        <label className={styles.checkRow}>
-          <input type="checkbox" checked={config.features.voiceInputEnabled} onChange={(e) => setSection('features', 'voiceInputEnabled', e.target.checked)} />
-          Bật nhập liệu giọng nói
-        </label>
-        <label className={styles.checkRow}>
-          <input type="checkbox" checked={config.features.offlineMode} onChange={(e) => setSection('features', 'offlineMode', e.target.checked)} />
-          Chế độ offline
-        </label>
-      </div>
-
-      <button className={styles.saveBtn} onClick={handleSave} disabled={saving}>
+      <Button onClick={handleSave} loading={saving}>
         {saving ? 'Đang lưu…' : 'Lưu cấu hình'}
-      </button>
+      </Button>
 
-      <div className={styles.card} style={{ marginTop: '1.25rem' }}>
-        <div className={styles.cardTitle}>Xem nhanh JSON (chỉ đọc)</div>
+      <Card padding={20}>
+        <SectionTitle title="Xem nhanh JSON (chỉ đọc)" style={{ marginBottom: 12 }} />
         <pre className={styles.hint} style={{ whiteSpace: 'pre-wrap' }}>{draft}</pre>
-      </div>
+      </Card>
     </div>
   );
 }

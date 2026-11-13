@@ -1,13 +1,21 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { adminService, ManagedUser } from '@/services/admin.service';
+import { Avatar, Button, Card, EmptyState, SearchInput, SectionTitle, StatusBadge } from '@/components/ui';
 import styles from '../layout.module.css';
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<ManagedUser[]>([]);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [query, setQuery] = useState('');
+
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return users;
+    return users.filter((u) => [u.email, u.full_name, u.role].join(' ').toLowerCase().includes(needle));
+  }, [query, users]);
 
   const load = () => {
     adminService.listUsers()
@@ -45,51 +53,79 @@ export default function AdminUsersPage() {
   };
 
   return (
-    <div>
-      <h1 className={styles.pageTitle}>Người dùng</h1>
+    <div className={styles.stack}>
       <p className={styles.pageSub}>Xem danh sách, phân quyền driver/admin, bật/tắt tài khoản.</p>
 
       {error && <div className={`${styles.alert} ${styles.alertError}`}>{error}</div>}
       {notice && <div className={`${styles.alert} ${styles.alertOk}`}>{notice}</div>}
 
-      <div className={styles.card}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Tên</th>
-              <th>Vai trò</th>
-              <th>Trạng thái</th>
-              <th>Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u.id}>
-                <td>{u.email}</td>
-                <td>{u.full_name}</td>
-                <td><span className={`${styles.badge} ${styles.badgeOn}`}>{u.role}</span></td>
-                <td>
-                  {u.disabled
-                    ? <span className={`${styles.badge} ${styles.badgeOff}`}>vô hiệu</span>
-                    : <span className={`${styles.badge} ${styles.badgeOn}`}>hoạt động</span>}
-                </td>
-                <td>
-                  <button className={styles.rowBtn} onClick={() => changeRole(u)}>
-                    {u.role === 'admin' ? '→ driver' : '→ admin'}
-                  </button>
-                  <button className={styles.rowBtn} onClick={() => toggleDisabled(u)}>
-                    {u.disabled ? 'Bật lại' : 'Vô hiệu'}
-                  </button>
-                </td>
+      <Card padding={20}>
+        <SectionTitle
+          title="Tài khoản"
+          action={<div style={{ width: 320, maxWidth: '100%' }}><SearchInput value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Lọc theo email, tên hoặc vai trò…" /></div>}
+        />
+        <div style={{ overflowX: 'auto', marginTop: 8 }}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Tên</th>
+                <th>Vai trò</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
               </tr>
-            ))}
-            {users.length === 0 && (
-              <tr><td colSpan={5}>Chưa có người dùng.</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filtered.map((u) => (
+                <tr key={u.id}>
+                  <td style={{ fontWeight: 500, color: 'var(--color-text-main)' }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                      <Avatar name={u.full_name} size={32} />
+                      {u.email}
+                    </span>
+                  </td>
+                  <td style={{ color: 'var(--color-text-main)' }}>{u.full_name}</td>
+                  <td>
+                    <StatusBadge
+                      status={u.role === 'admin' ? 'success' : 'info'}
+                      label={u.role === 'admin' ? 'Admin' : 'Driver'}
+                    />
+                  </td>
+                  <td>
+                    {u.disabled
+                      ? <StatusBadge status="failed" label="Vô hiệu" />
+                      : <StatusBadge status="success" label="Hoạt động" />}
+                  </td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <Button size="sm" variant="secondary" onClick={() => changeRole(u)}>
+                      {u.role === 'admin' ? '→ driver' : '→ admin'}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      style={{ marginLeft: 8 }}
+                      onClick={() => toggleDisabled(u)}
+                    >
+                      {u.disabled ? 'Bật lại' : 'Vô hiệu'}
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={5} style={{ padding: 24, color: 'var(--color-text-muted)', textAlign: 'center' }}>
+                    <EmptyState
+                      title="Chưa có người dùng phù hợp"
+                      description={query.trim() ? 'Thử từ khóa khác hoặc xóa bộ lọc.' : 'Chưa có tài khoản nào được tạo.'}
+                      action={<Button size="sm" variant="secondary" onClick={load}>Tải lại</Button>}
+                    />
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
   );
 }

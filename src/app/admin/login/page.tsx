@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
+import { Input } from '@/components/ui';
 import styles from '@/app/login/page.module.css';
 import Image from 'next/image';
 
@@ -45,30 +46,24 @@ export default function AdminLoginPage() {
         {error && <div className={styles.errorAlert}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="admin-email" className={styles.label}>Email quản trị</label>
-            <input
-              id="admin-email"
-              type="email"
-              className={styles.input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="admin@routeai.com"
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="admin-password" className={styles.label}>Mật khẩu</label>
-            <input
-              id="admin-password"
-              type="password"
-              className={styles.input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="••••••••"
-            />
-          </div>
+          <Input
+            label="Email quản trị"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="admin@routeai.com"
+            style={{ marginBottom: '1.25rem' }}
+          />
+          <Input
+            label="Mật khẩu"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="••••••••"
+            style={{ marginTop: '1.25rem' }}
+          />
           <button type="submit" className={styles.button} disabled={loading}>
             {loading ? 'Đang đăng nhập...' : 'Đăng nhập admin'}
           </button>

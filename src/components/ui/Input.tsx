@@ -11,8 +11,9 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   rightIcon?: ReactNode;
 }
 
-export function Input({ label, error, leftIcon, rightIcon, style, onFocus, onBlur, ...rest }: InputProps) {
+export function Input({ label, error, id, leftIcon, rightIcon, style, onFocus, onBlur, ...rest }: InputProps) {
   const [focused, setFocused] = useState(false);
+  const inputId = id ?? (label ? `rt-input-${label.replace(/\s+/g, "-").toLowerCase()}` : undefined);
 
   const borderColor = error
     ? "var(--color-danger)"
@@ -25,6 +26,7 @@ export function Input({ label, error, leftIcon, rightIcon, style, onFocus, onBlu
     <div style={{ display: "flex", flexDirection: "column", gap: 6, ...style }}>
       {label != null && (
         <label
+          htmlFor={inputId}
           style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-main)", fontFamily: "inherit" }}
         >
           {label}
@@ -51,6 +53,7 @@ export function Input({ label, error, leftIcon, rightIcon, style, onFocus, onBlu
         )}
         <input
           {...rest}
+          id={inputId}
           onFocus={(e) => {
             setFocused(true);
             onFocus?.(e);
