@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { adminService, ManagedUser } from '@/services/admin.service';
+import { Button, Card, StatusBadge } from '@/components/ui';
 import styles from '../layout.module.css';
 
 export default function AdminUsersPage() {
@@ -52,44 +53,60 @@ export default function AdminUsersPage() {
       {error && <div className={`${styles.alert} ${styles.alertError}`}>{error}</div>}
       {notice && <div className={`${styles.alert} ${styles.alertOk}`}>{notice}</div>}
 
-      <div className={styles.card}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Tên</th>
-              <th>Vai trò</th>
-              <th>Trạng thái</th>
-              <th>Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u.id}>
-                <td>{u.email}</td>
-                <td>{u.full_name}</td>
-                <td><span className={`${styles.badge} ${styles.badgeOn}`}>{u.role}</span></td>
-                <td>
-                  {u.disabled
-                    ? <span className={`${styles.badge} ${styles.badgeOff}`}>vô hiệu</span>
-                    : <span className={`${styles.badge} ${styles.badgeOn}`}>hoạt động</span>}
-                </td>
-                <td>
-                  <button className={styles.rowBtn} onClick={() => changeRole(u)}>
-                    {u.role === 'admin' ? '→ driver' : '→ admin'}
-                  </button>
-                  <button className={styles.rowBtn} onClick={() => toggleDisabled(u)}>
-                    {u.disabled ? 'Bật lại' : 'Vô hiệu'}
-                  </button>
-                </td>
+      <Card padding={0}>
+        <div style={{ overflowX: 'auto' }}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Tên</th>
+                <th>Vai trò</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
               </tr>
-            ))}
-            {users.length === 0 && (
-              <tr><td colSpan={5}>Chưa có người dùng.</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u.id}>
+                  <td style={{ fontWeight: 500, color: 'var(--color-text-main)' }}>{u.email}</td>
+                  <td style={{ color: 'var(--color-text-main)' }}>{u.full_name}</td>
+                  <td>
+                    <StatusBadge
+                      status={u.role === 'admin' ? 'delivered' : 'in_transit'}
+                      label={u.role === 'admin' ? 'Admin' : 'Driver'}
+                    />
+                  </td>
+                  <td>
+                    {u.disabled
+                      ? <StatusBadge status="failed" label="Vô hiệu" />
+                      : <StatusBadge status="success" label="Hoạt động" />}
+                  </td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <Button size="sm" variant="secondary" onClick={() => changeRole(u)}>
+                      {u.role === 'admin' ? '→ driver' : '→ admin'}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      style={{ marginLeft: 8 }}
+                      onClick={() => toggleDisabled(u)}
+                    >
+                      {u.disabled ? 'Bật lại' : 'Vô hiệu'}
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+              {users.length === 0 && (
+                <tr>
+                  <td colSpan={5} style={{ padding: 24, color: 'var(--color-text-muted)', textAlign: 'center' }}>
+                    Chưa có người dùng.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
   );
 }

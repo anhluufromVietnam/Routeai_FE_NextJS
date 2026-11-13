@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { LayoutDashboard, LogOut, Settings, Users } from 'lucide-react';
 import { AdminProvider, useAdmin } from '@/contexts/AdminContext';
 import styles from './layout.module.css';
 
@@ -23,15 +25,25 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   const nav = [
-    { href: '/admin/overview', label: 'Tổng quan vận hành' },
-    { href: '/admin', label: 'Cấu hình hệ thống' },
-    { href: '/admin/users', label: 'Người dùng' },
+    { href: '/admin/overview', label: 'Tổng quan vận hành', icon: <LayoutDashboard size={16} /> },
+    { href: '/admin', label: 'Cấu hình hệ thống', icon: <Settings size={16} /> },
+    { href: '/admin/users', label: 'Người dùng', icon: <Users size={16} /> },
   ];
 
   return (
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
-        <div className={styles.brand}>R:t · Admin</div>
+        <div className={styles.brand}>
+          <Image
+            src="/brand/05_app_icon_navy_tile_192.png"
+            alt="R:t"
+            width={40}
+            height={40}
+            priority
+            className={styles.brandLogo}
+          />
+          <span className={styles.brandName}>R:t · Admin</span>
+        </div>
         <div className={styles.adminInfo}>
           <div className={styles.adminName}>{admin.full_name}</div>
           <div className={styles.adminMeta}>{admin.email} · {admin.role}</div>
@@ -47,7 +59,9 @@ function AdminShell({ children }: { children: React.ReactNode }) {
             </Link>
           ))}
         </nav>
-        <button className={styles.logoutBtn} onClick={logout}>Đăng xuất</button>
+        <button className={styles.logoutBtn} onClick={logout}>
+          <LogOut size={16} aria-hidden /> Đăng xuất
+        </button>
       </aside>
       <main className={styles.main}>{children}</main>
     </div>

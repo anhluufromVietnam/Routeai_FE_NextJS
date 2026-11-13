@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { adminService, SystemConfig } from '@/services/admin.service';
+import { Button, Card, SectionTitle } from '@/components/ui';
 import styles from './layout.module.css';
 
 const OCR_OPTIONS = ['tesseract', 'google-vision', 'aws-textract', 'azure-vision'];
@@ -72,8 +73,8 @@ export default function AdminConfigPage() {
       {error && <div className={`${styles.alert} ${styles.alertError}`}>{error}</div>}
       {notice && <div className={`${styles.alert} ${styles.alertOk}`}>{notice}</div>}
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>OCR — nhận dạng ký tự</div>
+      <Card padding={20} style={{ marginBottom: 16 }}>
+        <SectionTitle title="OCR — nhận dạng ký tự" style={{ marginBottom: 16 }} />
         <div className={styles.grid}>
           <div className={styles.field}>
             <label htmlFor="ocr-provider">Provider</label>
@@ -91,10 +92,10 @@ export default function AdminConfigPage() {
           <input id="ocr-endpoint" value={config.ocr.endpoint} onChange={(e) => setSection('ocr', 'endpoint', e.target.value)} placeholder="https://…" />
         </div>
         <div className={styles.hint}>API key: {config.ocr.apiKeyConfigured ? 'đã cấu hình (env OCR_API_KEY)' : config.tokens.ocrApiKeyHint}</div>
-      </div>
+      </Card>
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>Voice — giọng nói</div>
+      <Card padding={20} style={{ marginBottom: 16 }}>
+        <SectionTitle title="Voice — giọng nói" style={{ marginBottom: 16 }} />
         <div className={styles.grid}>
           <div className={styles.field}>
             <label htmlFor="voice-provider">Provider</label>
@@ -118,10 +119,10 @@ export default function AdminConfigPage() {
           </div>
         </div>
         <div className={styles.hint}>API key: {config.voice.apiKeyConfigured ? 'đã cấu hình (env VOICE_API_KEY)' : config.tokens.voiceApiKeyHint}</div>
-      </div>
+      </Card>
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>Bản đồ</div>
+      <Card padding={20} style={{ marginBottom: 16 }}>
+        <SectionTitle title="Bản đồ" style={{ marginBottom: 16 }} />
         <div className={styles.field}>
           <label htmlFor="map-url">Map URL (tile template)</label>
           <input id="map-url" value={config.maps.mapUrl} onChange={(e) => setSection('maps', 'mapUrl', e.target.value)} />
@@ -131,10 +132,10 @@ export default function AdminConfigPage() {
           <input id="tile-provider" value={config.maps.tileProvider} onChange={(e) => setSection('maps', 'tileProvider', e.target.value)} />
         </div>
         <div className={styles.hint}>API key: {config.maps.apiKeyConfigured ? 'đã cấu hình (env MAP_API_KEY)' : config.tokens.mapApiKeyHint}</div>
-      </div>
+      </Card>
 
-      <div className={styles.card}>
-        <div className={styles.cardTitle}>Tính năng</div>
+      <Card padding={20} style={{ marginBottom: 16 }}>
+        <SectionTitle title="Tính năng" style={{ marginBottom: 16 }} />
         <label className={styles.checkRow}>
           <input type="checkbox" checked={config.features.qrScanEnabled} onChange={(e) => setSection('features', 'qrScanEnabled', e.target.checked)} />
           Bật quét QR
@@ -147,16 +148,16 @@ export default function AdminConfigPage() {
           <input type="checkbox" checked={config.features.offlineMode} onChange={(e) => setSection('features', 'offlineMode', e.target.checked)} />
           Chế độ offline
         </label>
-      </div>
+      </Card>
 
-      <button className={styles.saveBtn} onClick={handleSave} disabled={saving}>
+      <Button onClick={handleSave} loading={saving} style={{ marginBottom: 16 }}>
         {saving ? 'Đang lưu…' : 'Lưu cấu hình'}
-      </button>
+      </Button>
 
-      <div className={styles.card} style={{ marginTop: '1.25rem' }}>
-        <div className={styles.cardTitle}>Xem nhanh JSON (chỉ đọc)</div>
+      <Card padding={20}>
+        <SectionTitle title="Xem nhanh JSON (chỉ đọc)" style={{ marginBottom: 12 }} />
         <pre className={styles.hint} style={{ whiteSpace: 'pre-wrap' }}>{draft}</pre>
-      </div>
+      </Card>
     </div>
   );
 }
