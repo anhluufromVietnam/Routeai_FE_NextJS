@@ -2,20 +2,27 @@
 
 import React, { useState } from 'react';
 import styles from '../page.module.css';
-import { Search } from 'lucide-react';
+import { Check, ChevronRight } from 'lucide-react';
+import { SearchInput, Chip, EmptyState } from '@/components/ui';
 import { CANADIAN_BANKS, CanadianBankApp } from '@/services/airwallex/canadianBanks';
 
-type BankCategory = 'all' | 'featured' | 'big6' | 'digital' | 'fintech' | 'credit_union';
+type BankCategory = 'featured' | 'big6' | 'digital' | 'fintech' | 'credit_union' | 'all';
+
+const CATEGORY_FILTERS: { value: BankCategory; label: string }[] = [
+  { value: 'featured', label: 'Nổi bật' },
+  { value: 'big6', label: 'Big Six' },
+  { value: 'digital', label: 'Ngân hàng số' },
+  { value: 'fintech', label: 'Fintech' },
+  { value: 'credit_union', label: 'Credit Union' },
+  { value: 'all', label: `Tất cả (${CANADIAN_BANKS.length})` },
+];
 
 interface BankSelectorProps {
   selectedBankId: string;
   onSelectBankId: (id: string) => void;
 }
 
-export function BankSelector({
-  selectedBankId,
-  onSelectBankId,
-}: BankSelectorProps) {
+export function BankSelector({ selectedBankId, onSelectBankId }: BankSelectorProps) {
   const [bankSearch, setBankSearch] = useState('');
   const [bankCategoryFilter, setBankCategoryFilter] = useState<BankCategory>('featured');
 
@@ -34,112 +41,115 @@ export function BankSelector({
   });
 
   return (
-    <>
-      <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', margin: '0 0 1rem 0' }}>
-        Select your Canadian financial institution. We support 250+ banks, credit unions, and fintechs on the Interac e-Transfer network.
-      </p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-navy)' }}>Ngân hàng của bạn</div>
 
-      {/* Search Bar */}
-      <div className={styles.searchContainer}>
-        <Search size={18} className={styles.searchIcon} />
-        <input
-          type="text"
-          className={styles.searchInput}
-          value={bankSearch}
-          onChange={(e) => setBankSearch(e.target.value)}
-          placeholder="Search bank name or institution code (e.g. RBC, TD, Desjardins, Wealthsimple)..."
-        />
+      <SearchInput
+        value={bankSearch}
+        onChange={(e) => setBankSearch(e.target.value)}
+        placeholder="Tìm theo tên hoặc mã ngân hàng (RBC, TD, Desjardins...)"
+      />
+
+      <div className={styles.filterChips}>
+        {CATEGORY_FILTERS.map((f) => (
+          <Chip
+            key={f.value}
+            label={f.label}
+            selected={bankCategoryFilter === f.value}
+            onClick={() => setBankCategoryFilter(f.value)}
+            style={{ flexShrink: 0 }}
+          />
+        ))}
       </div>
 
-      {/* Filter Pills */}
-      <div className={styles.filterPills}>
-        <button
-          type="button"
-          className={`${styles.filterPill} ${bankCategoryFilter === 'featured' ? styles.filterPillActive : ''}`}
-          onClick={() => setBankCategoryFilter('featured')}
-        >
-          Featured & Popular
-        </button>
-        <button
-          type="button"
-          className={`${styles.filterPill} ${bankCategoryFilter === 'big6' ? styles.filterPillActive : ''}`}
-          onClick={() => setBankCategoryFilter('big6')}
-        >
-          Big Six Banks
-        </button>
-        <button
-          type="button"
-          className={`${styles.filterPill} ${bankCategoryFilter === 'digital' ? styles.filterPillActive : ''}`}
-          onClick={() => setBankCategoryFilter('digital')}
-        >
-          Online / Direct Banks
-        </button>
-        <button
-          type="button"
-          className={`${styles.filterPill} ${bankCategoryFilter === 'fintech' ? styles.filterPillActive : ''}`}
-          onClick={() => setBankCategoryFilter('fintech')}
-        >
-          Fintech & Wallets
-        </button>
-        <button
-          type="button"
-          className={`${styles.filterPill} ${bankCategoryFilter === 'credit_union' ? styles.filterPillActive : ''}`}
-          onClick={() => setBankCategoryFilter('credit_union')}
-        >
-          Credit Unions
-        </button>
-        <button
-          type="button"
-          className={`${styles.filterPill} ${bankCategoryFilter === 'all' ? styles.filterPillActive : ''}`}
-          onClick={() => setBankCategoryFilter('all')}
-        >
-          All Banks ({CANADIAN_BANKS.length})
-        </button>
-      </div>
-
-      {/* Bank Cards Grid */}
-      <div className={styles.bankGrid}>
-        {filteredBanks.map((b: CanadianBankApp) => {
+      <div className={styles.bankList}>
+        {filteredBanks.map((b) => {
           const active = selectedBankId === b.id;
-          const isCompany = b.category === 'company';
           return (
-            <div
+            <button
               key={b.id}
-              className={`${styles.bankCard} ${active ? styles.bankCardSelected : ''} ${isCompany ? styles.bankCardCompany : ''}`}
+              type="button"
               onClick={() => onSelectBankId(b.id)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                textAlign: 'left',
+                padding: '8px 12px',
+                borderRadius: 'var(--radius-md)',
+                background: active ? 'var(--color-primary-light)' : 'var(--color-bg-surface)',
+                border: `1px solid ${active ? 'var(--color-primary)' : 'var(--color-border-light)'}`,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'border-color 200ms ease-out, background 200ms ease-out',
+              }}
             >
-              {isCompany && <div className={styles.companyBadge}>Our Bank</div>}
-              <div className={styles.bankLogoCircle} style={{ backgroundColor: b.logoColor }}>
-                {b.shortName}
-              </div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-main)', lineHeight: 1.25 }}>
-                {b.name}
-              </div>
-              <div style={{ fontSize: '0.67rem', color: 'var(--color-text-muted)', marginTop: 3 }}>
-                {b.institutionNumber ? `Inst: ${b.institutionNumber}` : 'Interac Network'}
-              </div>
-            </div>
+              <span
+                aria-hidden
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 'var(--radius-pill)',
+                  background: b.logoColor,
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  flexShrink: 0,
+                }}
+              >
+                {b.shortName.length <= 4 ? b.shortName : b.shortName.slice(0, 3)}
+              </span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: 'var(--color-navy)',
+                  }}
+                >
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{b.name}</span>
+                  {b.category === 'company' && (
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 600,
+                        color: 'var(--color-success)',
+                        background: 'var(--color-success-light)',
+                        borderRadius: 'var(--radius-pill)',
+                        padding: '2px 6px',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      Ngân hàng công ty
+                    </span>
+                  )}
+                </span>
+                <span style={{ display: 'block', fontSize: 12, color: 'var(--color-text-muted)', marginTop: 2 }}>
+                  {b.institutionNumber ? `Inst: ${b.institutionNumber}` : 'Interac Network'}
+                </span>
+              </span>
+              {active ? (
+                <Check size={18} color="var(--color-primary)" style={{ flexShrink: 0 }} />
+              ) : (
+                <ChevronRight size={16} color="var(--color-text-muted)" style={{ flexShrink: 0 }} />
+              )}
+            </button>
           );
         })}
-      </div>
 
-      {filteredBanks.length === 0 && (
-        <div
-          style={{
-            textAlign: 'center',
-            padding: '1.5rem',
-            background: 'var(--color-bg-app)',
-            borderRadius: 10,
-            border: '1px dashed var(--color-border-light)',
-            marginBottom: '1.5rem',
-            color: 'var(--color-text-muted)',
-            fontSize: '0.9rem',
-          }}
-        >
-          No bank matched &quot;<strong>{bankSearch}</strong>&quot;. You can still use our Interac Autodeposit email from any Canadian bank app.
-        </div>
-      )}
-    </>
+        {filteredBanks.length === 0 && (
+          <EmptyState
+            title="Không tìm thấy ngân hàng"
+            description={`Không khớp "${bankSearch}". Bạn vẫn có thể dùng email Autodeposit Interac từ bất kỳ ngân hàng Canada nào.`}
+          />
+        )}
+      </div>
+    </div>
   );
 }
-
